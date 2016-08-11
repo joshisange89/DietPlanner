@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Diet Planner</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href='https://fonts.googleapis.com/css?family=Amarante' rel='stylesheet' type='text/css'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+<body>
+<nav class="navbar navbar-default container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#"><img src="logo1.png" width="50%"></a>
+    </div>
+</nav>
+
+<img src="login.jpg" id="login_img">
+
+<div class="container"> 
+	<div class="row">
+		<div class="contaier col-md-6 signin">
+		<form role="form">
+			<input type="text" class="form-control" id="username" placeholder="Email Id/Username" required /><br/>
+			<input type="password" class="form-control" id="password" placeholder="Password" required /><br/>
+			<button class="btn btn-primary btn-block" id="bsignin" onclick="onSignIn()">Sign In</button>
+		</form>
+		</div>
+
+		<div class="contaier col-md-6 signup">
+		<form role="form">
+			<input type="text" class="form-control" id="username" placeholder="Email Id/Username" required /><br/>
+			<input type="password" class="form-control" id="password" placeholder="New Password" required /><br/>
+			<input type="password" class="form-control" id="password" placeholder="Confirm Password" required /><br/>
+			<button class="btn btn-primary btn-block" id="bsignup" onclick="onSignUp()">Sign Up</button>
+		</form>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
+
