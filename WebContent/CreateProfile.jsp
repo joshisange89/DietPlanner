@@ -53,14 +53,15 @@
 				<div class="form-group">
 					<label for="height" class="control-label col-md-3" >Height: </label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" id="height" name="height" placeholder="Height">
+						<input type="text" class="form-control" id="feet" name="feet" placeholder="Feet">
+						<input type="text" class="form-control" id="inches" name="inches" placeholder="Inches">
 					</div>
 				</div>
 				
 				<div class="form-group">	
 					<label for="weight" class="control-label col-md-3" >Weight: </label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" id="weight" name="weight" placeholder="Weight" >
+						<input type="text" class="form-control" id="weight" name="weight" placeholder="Weight (lbs)" >
 					</div>
 				</div>
 				

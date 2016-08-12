@@ -49,7 +49,9 @@ public class SaveProfileServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         String firstname = null;
         String lastname = null;
-        String height = null;
+        int height = 0;
+        String hfeet = null;
+        String hinches = null;
         String weight = null;
         String age = null;
         String gender = null;
@@ -60,7 +62,8 @@ public class SaveProfileServlet extends HttpServlet {
        
         firstname = request.getParameter("firstname");
         lastname = request.getParameter("lastname");
-        height = request.getParameter("height");   
+        hfeet = request.getParameter("feet");
+        hinches = request.getParameter("inches");
         weight = request.getParameter("weight");
         age = request.getParameter("age");
         gender = request.getParameter("gender");
@@ -68,12 +71,13 @@ public class SaveProfileServlet extends HttpServlet {
         food = request.getParameter("food");
         goal = request.getParameter("goal");
         timeframe = request.getParameter("timeframe");
-       
+        
+        height = Integer.parseInt(hfeet) * 12 + Integer.parseInt(hinches); 
         
         userProfile.setUserId((int) session.getAttribute("userId"));
         userProfile.setFirstname(firstname);
         userProfile.setLastname(lastname);
-        userProfile.setHeight(Integer.parseInt(height));
+        userProfile.setHeight(height);
         userProfile.setWeight(Integer.parseInt(weight));
         userProfile.setAge(Integer.parseInt(age));
         userProfile.setGender(gender);

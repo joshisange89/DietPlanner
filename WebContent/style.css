@@ -104,6 +104,11 @@ label {
 	font-size: 1.4em;
 }
 
+#feet, #inches {
+	width: 49%;
+	display: inline;
+}
+
 #timeframe {
 	width: 250px;
 	height: 30px;
