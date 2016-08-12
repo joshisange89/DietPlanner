@@ -85,6 +85,7 @@ body {
 
 .form-control {
 	height: 45px;
+	font-size: 1.2em;
 }
 
 #bsignin, #bsignup {
@@ -116,4 +117,29 @@ label {
 #bsave {
 	background-color: #001a66;
 	font-size: 1.6em;
+}
+
+.week {
+	text-align: center;
+	width: 14%;
+}
+
+.track_week {
+	margin-top: 15%;
+	margin-left: 10%;
+	display: flex;
+	display: -moz-flex;
+	display: -webkit-flex;
+}
+
+#checkmark1, #checkmark2, #checkmark3, #checkmark4, #checkmark5, #checkmark6, #checkmark7 {
+	width: 65px;
+	height: 65px;
+	background: url("check-mark-disabled.png") no-repeat;
+	background-size: cover;
+	border: 0;
+}
+
+#arrows {
+	margin-top: 240%;
 }

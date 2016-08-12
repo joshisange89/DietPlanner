@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
 	<title>Diet Planner</title>
@@ -32,26 +34,40 @@
 		</div>
 		
 		<div class="container col-md-8 main">
-			<form class="form-horizontal" role="form">
+			<form class="form-horizontal" role="form" action="SaveProfileServlet" method="post">
+
+				<div class="form-group">
+					<label for="firstname" class="control-label col-md-3" >First Name: </label>
+					<div class="col-md-6">
+						<input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="lastname" class="control-label col-md-3" >Last Name: </label>
+					<div class="col-md-6">
+						<input type="text" class="form-control" id="lastname" name="lastname" placeholder="Height">
+					</div>
+				</div>
 			
 				<div class="form-group">
 					<label for="height" class="control-label col-md-3" >Height: </label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" id="height" placeholder="Height">
+						<input type="text" class="form-control" id="height" name="height" placeholder="Height">
 					</div>
 				</div>
 				
 				<div class="form-group">	
 					<label for="weight" class="control-label col-md-3" >Weight: </label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" id="weight" placeholder="Weight" >
+						<input type="text" class="form-control" id="weight" name="weight" placeholder="Weight" >
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label for="age" class="control-label col-md-3" >Age:</label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" id="age" placeholder="age" >
+						<input type="text" class="form-control" id="age" name="age" placeholder="age" >
 					</div>
 				</div>
 				
@@ -73,7 +89,7 @@
 					<div class="col-md-9">
 						<div class="row">
 							<div class="col-md-8">
-								<select size="6" class="form-control" id="body" required>
+								<select size="6" class="form-control" id="body" name="body" required>
 									<option value="inverted">Inverted Triangle</option>
 									<option value="rhomboid">Rhomboid</option>
 									<option value="rectangle">Rectangle</option>
@@ -94,7 +110,7 @@
 					<div class="col-md-9">
 						<div class="row">
 							<div class="col-md-8">
-								<select size="6" class="form-control" required>
+								<select size="6" class="form-control" body="name" required>
 									<option value="hourglass">Hourglass</option>
 									<option value="inverted">Inverted Triangle</option>
 									<option value="rectangle">Rectangle</option>
@@ -112,25 +128,25 @@
 				</div>
 			
 				<div class="form-group">
-					<label for="foodtype" class="control-label col-md-3" >Food: </label>
+					<label for="food" class="control-label col-md-3" >Food: </label>
 					<div class="col-md-9">
 						<label class="radio-inline">
-							<input type="radio" id="foodtype" name="foodtype" value="veg" checked>Vegetarian
+							<input type="radio" id="food" name="food" value="veg" checked>Vegetarian
 						</label>
 						<label class="radio-inline">
-							<input type="radio" id="foodtype" name="foodtype" value="nonveg" >Non-Vegetarian
+							<input type="radio" id="food" name="food" value="nonveg" >Non-Vegetarian
 						</label>
 					</div>
 				</div>
 				
 				<div class="form-group">
-					<label for="goaltype" class="control-label col-md-3" >Goal:</label>
+					<label for="goal" class="control-label col-md-3" >Goal:</label>
 					<div class="col-md-9">
 						<label class="radio-inline">
-							<input type="radio" id="goaltype" name="goaltype" value="weightGain" checked>Gain Weight
+							<input type="radio" id="goal" name="goal" value="weightGain" checked>Gain Weight
 						</label>
 						<label class="radio-inline">
-							<input type="radio" id="goaltype" name="goaltype" value="weightLose">Lose Weight
+							<input type="radio" id="goal" name="goal" value="weightLose">Lose Weight
 						</label>
 					</div>
 				</div>
@@ -140,7 +156,6 @@
 					<div class="col-md-9">
 						<select>
 							<option value="select" id="timeframe" selected>Select</option>
-							<option value="weeks">2 Weeks</option>
 							<option value="month">1 Month</option>
 							<option value="month2">2 Month</option>
 						</select>
@@ -155,4 +170,3 @@
 
 </body>
 </html>
-
