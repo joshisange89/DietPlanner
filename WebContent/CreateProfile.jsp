@@ -76,26 +76,25 @@
 					<label for="gender" class="control-label col-md-3" >Gender: </label>
 					<div class="col-md-9">
 						<label class="radio-inline">
-							<input type="radio" id="gender" name="gender" checked>Male
+							<input type="radio" id="gender" name="gender" onclick="changeBody(this.value)" value="male" checked>Male
 						</label>
 						<label class="radio-inline">
-							<input type="radio" id="gender" name="gender" >Female
+							<input type="radio" id="gender" name="gender" onclick="changeBody(this.value)" value="female" >Female
 						</label>
 					</div>
-					
 				</div>
 				
-				<div class="form-group">
+				<div class="form-group" id="maleBody" style="display:block">
 					<label for="body" class="control-label col-md-3" >Body Shape: </label>
 					<div class="col-md-9">
 						<div class="row">
 							<div class="col-md-8">
 								<select size="6" class="form-control" id="body" name="body" required>
 									<option value="inverted">Inverted Triangle</option>
-									<option value="rhomboid">Rhomboid</option>
 									<option value="rectangle">Rectangle</option>
 									<option value="triangle">Triangle</option>
 									<option value="oval">Oval</option>
+									<option value="rhomboid">Rhomboid</option>
 								</select>
 							</div>
 							<!--
@@ -105,29 +104,29 @@
 						</div>
 					</div>
 				</div>
-				
-				<div class="form-group">
+
+				<div class="form-group" id="femaleBody" style="display:none;">
 					<label for="body" class="control-label col-md-3" >Body Shape: </label>
 					<div class="col-md-9">
 						<div class="row">
 							<div class="col-md-8">
-								<select size="6" class="form-control" body="name" required>
-									<option value="hourglass">Hourglass</option>
+								<select size="6" class="form-control" id="body" name="body" required>
 									<option value="inverted">Inverted Triangle</option>
 									<option value="rectangle">Rectangle</option>
 									<option value="triangle">Triangle</option>
-									<option value="apple">Diamond</option>
-									<option value="oval">Oval</option> 
+									<option value="oval">Oval</option>
+									<option value="rhomboid">Hourglass</option>
+									<option value="rhomboid">Diamond</option>
 								</select>
 							</div>
 							<!--
 							<div class="col-md-8">
-								<img src="http://4.bp.blogspot.com/-lHMZU3z5tC8/UOdZskm1cEI/AAAAAAAACzE/vURLoLmHLhM/s1600/body+types-men.jpg" height="400px" width="600px">
+								<img src="http://peterandsharda.com/wp-includes/Text/women-body-shapes-pictures-i4.jpg" height="400px" width="600px">
 							</div> -->
 						</div>
 					</div>
 				</div>
-			
+							
 				<div class="form-group">
 					<label for="food" class="control-label col-md-3" >Food: </label>
 					<div class="col-md-9">
@@ -163,11 +162,26 @@
 					</div>
 				</div>
 				
-				<button class="btn btn-primary btn-block" id="bsave" ng-click="saveProfile()">Save Profile</button>
+				<button class="btn btn-primary btn-block" id="bsave" onclick="saveProfile()">Save Profile</button>
 			</form>
 		</div>
 	</div>
 </div>
+<script>
 
+function changeBody(gender) {
+		
+	if ( gender == "male" ) {
+		document.getElementById("maleBody").style.display = "block";
+		document.getElementById("femaleBody").style.display = "none";
+	}
+	else if ( gender == "female") {
+		document.getElementById("maleBody").style.display = "none";
+		document.getElementById("femaleBody").style.display = "block";
+	}
+}
+
+
+</script>
 </body>
 </html>
