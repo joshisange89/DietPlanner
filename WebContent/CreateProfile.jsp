@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -28,7 +28,7 @@
     </ul>
 </nav>
 
-<div class="container"> 
+<div class="container">
 	<div class="row">
 		<div class="container col-md-2">
 		</div>
@@ -89,7 +89,7 @@
 					<div class="col-md-9">
 						<div class="row">
 							<div class="col-md-8">
-								<select size="6" class="form-control" id="body" name="body" required>
+								<select size="6" class="form-control" id="body" name="body">
 									<option value="inverted">Inverted Triangle</option>
 									<option value="rectangle">Rectangle</option>
 									<option value="triangle">Triangle</option>
@@ -110,7 +110,7 @@
 					<div class="col-md-9">
 						<div class="row">
 							<div class="col-md-8">
-								<select size="6" class="form-control" id="body" name="body" required>
+								<select size="6" class="form-control" id="body" name="body">
 									<option value="inverted">Inverted Triangle</option>
 									<option value="rectangle">Rectangle</option>
 									<option value="triangle">Triangle</option>
@@ -154,15 +154,15 @@
 				<div class="form-group">
 					<label for="timeframe" class="control-label col-md-3" >Time Frame:</label>
 					<div class="col-md-9">
-						<select>
-							<option value="select" id="timeframe" selected>Select</option>
-							<option value="month">1 Month</option>
-							<option value="month2">2 Month</option>
+						<select id="timeframe" name="timeframe">
+							<option value="select" selected>Select</option>
+							<option value="1month">1 Month</option>
+							<option value="2month">2 Month</option>
 						</select>
 					</div>
 				</div>
 				
-				<button class="btn btn-primary btn-block" id="bsave" onclick="saveProfile()">Save Profile</button>
+				<button class="btn btn-primary btn-block" id="bsave">Save Profile</button>
 			</form>
 		</div>
 	</div>
