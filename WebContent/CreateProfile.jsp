@@ -90,11 +90,10 @@
 						<div class="row">
 							<div class="col-md-8">
 								<select size="6" class="form-control" id="body" name="body">
-									<option value="inverted">Inverted Triangle</option>
-									<option value="rectangle">Rectangle</option>
-									<option value="triangle">Triangle</option>
-									<option value="oval">Oval</option>
-									<option value="rhomboid">Rhomboid</option>
+									<option value="Pear">Pear</option>
+									<option value="Apple">Apple</option>
+									<option value="Curvy/Hourglass">Curvy/Hourglass</option>
+									<option value="Banana/Straight">Banana/Straight</option>
 								</select>
 							</div>
 							<!--
@@ -111,12 +110,10 @@
 						<div class="row">
 							<div class="col-md-8">
 								<select size="6" class="form-control" id="body" name="body">
-									<option value="inverted">Inverted Triangle</option>
-									<option value="rectangle">Rectangle</option>
-									<option value="triangle">Triangle</option>
-									<option value="oval">Oval</option>
-									<option value="rhomboid">Hourglass</option>
-									<option value="rhomboid">Diamond</option>
+									<option value="Pear">Pear</option>
+									<option value="Apple">Apple</option>
+									<option value="Curvy/Hourglass">Curvy/Hourglass</option>
+									<option value="Banana/Straight">Banana/Straight</option>
 								</select>
 							</div>
 							<!--
