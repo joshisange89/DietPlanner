@@ -72,28 +72,24 @@ public class HomeServlet extends HttpServlet {
 			
 			if("Pear".equals(body)){
 				session.setAttribute("userProfile", userProfile);
-				req.setAttribute("exercise", body);
 				RequestDispatcher requestDispatcher = req.getRequestDispatcher("exercise1.jsp");
     		    requestDispatcher.forward(req, resp);
     		    return;
 			}
 			else if("Apple".equals(body)){
 				session.setAttribute("userProfile", userProfile);
-				req.setAttribute("exercise", body);
 				RequestDispatcher requestDispatcher = req.getRequestDispatcher("exercise2.jsp");
 			    requestDispatcher.forward(req, resp);
 			    return;
 			}
 			else if("Curvy/Hourglass".equals(body)){
 				session.setAttribute("userProfile", userProfile);
-				req.setAttribute("exercise", body);
 				RequestDispatcher requestDispatcher = req.getRequestDispatcher("exercise3.jsp");
     		    requestDispatcher.forward(req, resp);
     		    return;
 			}
 			else if("Banana/straight".equals(body)){
 				session.setAttribute("userProfile", userProfile);
-				req.setAttribute("exercise", body);
 				RequestDispatcher requestDispatcher = req.getRequestDispatcher("exercise4.jsp");
     		    requestDispatcher.forward(req, resp);
     		    return;
@@ -106,8 +102,54 @@ public class HomeServlet extends HttpServlet {
 			String goal = userProfile.getGoal();
 			String timeframe = userProfile.getTimeFrame();
 			
-			
-			
+			if("veg".equals(food) && "weightLose".equals(goal) && "2month".equals(timeframe)){
+				session.setAttribute("userProfile", userProfile);
+				RequestDispatcher requestDispatcher = req.getRequestDispatcher("dietPlan8.jsp");
+    		    requestDispatcher.forward(req, resp);
+    		    return;
+			}
+			else if("veg".equals(food) && "weightLose".equals(goal) && "1month".equals(timeframe)){
+				session.setAttribute("userProfile", userProfile);
+				RequestDispatcher requestDispatcher = req.getRequestDispatcher("dietPlan7.jsp");
+    		    requestDispatcher.forward(req, resp);
+    		    return;
+			}
+			else if("nonveg".equals(food) && "weightLose".equals(goal) && "2month".equals(timeframe)){
+				session.setAttribute("userProfile", userProfile);
+				RequestDispatcher requestDispatcher = req.getRequestDispatcher("dietPlan6.jsp");
+    		    requestDispatcher.forward(req, resp);
+    		    return;
+			}
+			else if("nonveg".equals(food) && "weightLose".equals(goal) && "1month".equals(timeframe)){
+				session.setAttribute("userProfile", userProfile);
+				RequestDispatcher requestDispatcher = req.getRequestDispatcher("dietPlan5.jsp");
+    		    requestDispatcher.forward(req, resp);
+    		    return;
+			}
+			else if("veg".equals(food) && "weightGain".equals(goal) && "2month".equals(timeframe)){
+				session.setAttribute("userProfile", userProfile);
+				RequestDispatcher requestDispatcher = req.getRequestDispatcher("dietPlan4.jsp");
+    		    requestDispatcher.forward(req, resp);
+    		    return;
+			}
+			else if("veg".equals(food) && "weightGain".equals(goal) && "1month".equals(timeframe)){
+				session.setAttribute("userProfile", userProfile);
+				RequestDispatcher requestDispatcher = req.getRequestDispatcher("dietPlan3.jsp");
+    		    requestDispatcher.forward(req, resp);
+    		    return;
+			}
+			else if("nonveg".equals(food) && "weightGain".equals(goal) && "2month".equals(timeframe)){
+				session.setAttribute("userProfile", userProfile);
+				RequestDispatcher requestDispatcher = req.getRequestDispatcher("dietPlan2.jsp");
+    		    requestDispatcher.forward(req, resp);
+    		    return;
+			}
+			else if("nonveg".equals(food) && "weightGain".equals(goal) && "1month".equals(timeframe)){
+				session.setAttribute("userProfile", userProfile);
+				RequestDispatcher requestDispatcher = req.getRequestDispatcher("dietPlan1.jsp");
+    		    requestDispatcher.forward(req, resp);
+    		    return;
+			}
 		}
 	}
 
