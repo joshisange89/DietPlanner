@@ -98,7 +98,7 @@ public class SaveProfileServlet extends HttpServlet {
         if (ProfileDAO.createProfile(userProfile)) {
         	diet = DietPlanDAO.getDietPlan(userProfile.getUserId(), userProfile.getFood(), userProfile.getGoal(), userProfile.getTimeFrame());
         	ProfileDAO.updateProfile(userProfile.getUserId(), diet.getDietId());
-    		session.setAttribute("userId", userProfile.getUserId());
+    		session.setAttribute("userProfile", userProfile);
     		session.setAttribute("dietPlan", diet);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
 		    requestDispatcher.forward(request, response);

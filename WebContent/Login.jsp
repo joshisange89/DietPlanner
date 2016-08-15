@@ -16,7 +16,7 @@
 </head>
 
 <body>
-<body>
+
 <nav class="navbar navbar-default container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#"><img src="logo1.png" width="50%"></a>

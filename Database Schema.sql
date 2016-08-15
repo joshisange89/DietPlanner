@@ -36,6 +36,8 @@ create table diet_plan (
 );
 
 create table diet_track (
+	user_id bigint NOT NULL,
+	week_day varchar(20) NOT NULL,
 	daily_date datetime NOT NULL,
 	flag boolean NOT NULL
 );

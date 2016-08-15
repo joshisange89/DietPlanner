@@ -27,7 +27,7 @@ public class HomeServlet extends HttpServlet {
 	@SuppressWarnings("unused")
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 		resp.setContentType("text/html");
 		PrintWriter out = resp.getWriter();
 		HttpSession session = req.getSession(false);
@@ -38,7 +38,6 @@ public class HomeServlet extends HttpServlet {
 		int weight = userProfile.getWeight();
 
 		if ("bmi".equals(req.getParameter("calculateAction"))) {
-			// Calculate BMI
 			int bmi;
 			bmi = (weight * 703) / (height * height);
 
@@ -49,7 +48,6 @@ public class HomeServlet extends HttpServlet {
 			return;
 
 		} else if ("ibw".equals(req.getParameter("calculateAction"))) {
-			// Calculate IBW
 			String gender = null;
 			int ibw;
 			int diff;
@@ -67,7 +65,6 @@ public class HomeServlet extends HttpServlet {
 			requestDispatcher.forward(req, resp);
 			return;
 		} else if ("exercise".equals(req.getParameter("calculateAction"))){
-			//Show Exercise
 			String body= userProfile.getBodyshape();
 			
 			if("Pear".equals(body)){
@@ -96,7 +93,6 @@ public class HomeServlet extends HttpServlet {
 			}
 			
 		}else if("dietplan".equals(req.getParameter("calculateAction"))){
-			//View Diet Plan
 			
 			String food = userProfile.getFood();
 			String goal = userProfile.getGoal();
@@ -152,5 +148,4 @@ public class HomeServlet extends HttpServlet {
 			}
 		}
 	}
-
 }

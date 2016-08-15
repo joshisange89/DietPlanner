@@ -98,20 +98,12 @@
 					<div class="col-md-9">
 						<div class="row">
 							<div class="col-md-8">
-<<<<<<< HEAD
 								<select size="6" class="form-control" id="mbody" name="body" value = "<%= userProfile.getBodyshape()%>" >
 									<option value="inverted">Inverted Triangle</option>
 									<option value="rectangle">Rectangle</option>
 									<option value="triangle">Triangle</option>
 									<option value="oval">Oval</option>
 									<option value="rhomboid">Rhomboid</option>
-=======
-								<select size="6" class="form-control" id="body" name="body">
-									<option value="Pear">Pear</option>
-									<option value="Apple">Apple</option>
-									<option value="Curvy/Hourglass">Curvy/Hourglass</option>
-									<option value="Banana/Straight">Banana/Straight</option>
->>>>>>> origin/master
 								</select>
 							</div>
 							<!--
@@ -127,7 +119,6 @@
 					<div class="col-md-9">
 						<div class="row">
 							<div class="col-md-8">
-<<<<<<< HEAD
 								<select size="6" class="form-control" id="fbody" name="body">
 									<option value="inverted">Inverted Triangle</option>
 									<option value="rectangle">Rectangle</option>
@@ -135,13 +126,6 @@
 									<option value="oval">Oval</option>
 									<option value="rhomboid">Hourglass</option>
 									<option value="rhomboid">Diamond</option>
-=======
-								<select size="6" class="form-control" id="body" name="body">
-									<option value="Pear">Pear</option>
-									<option value="Apple">Apple</option>
-									<option value="Curvy/Hourglass">Curvy/Hourglass</option>
-									<option value="Banana/Straight">Banana/Straight</option>
->>>>>>> origin/master
 								</select>
 							</div>
 							<!--
@@ -190,7 +174,7 @@
 				<div class="form-group">
 					<label for="startDate" class="control-label col-md-3" >Start Date:</label>
 					<div class="col-md-9">
-					<input type="date" id="startDate" name="startDate">
+					<input type="date" id="startDate" name="startDate" required>
 					</div>
 				</div>
 				
