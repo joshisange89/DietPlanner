@@ -20,6 +20,7 @@
 </head>
 
 <body>
+	<img src="login.jpg" id="login_img">
 	<nav class="navbar navbar-default container-fluid">
 	<div class="navbar-header">
 		<a class="navbar-brand" href="#"><img src="logo1.png" width="50%"></a>
@@ -34,42 +35,57 @@
 
 	<div class="container">
 		<div class="row">
-				<div class="main">
+				<div class="section_left">
 					<form role="form" action="HomeServlet" method="post">
 				    <input type="hidden" id="calculateAction" name="calculateAction" value="bmi" />
-						<button class="btn btn-primary btn-md" id="viewBmi"
+						<button class="button button:active" id="viewBmi"
 							onclick="viewBMI()">View My BMI</button>
 						<%if (request.getAttribute("bmi") != null) {%>
-					    <p name="bmi"><%=request.getAttribute("bmi")%></p>
+					    <p name="bmi" align="center"><font size="4" color="#00007f"><%=request.getAttribute("bmi")%></font></p>
 					    <%}%>
 						<br />
 						<br />
 					</form>
 					<form role="form" action="HomeServlet" method="post">
 					<input type="hidden" id="calculateAction" name="calculateAction" value="ibw" />
-					<button class="btn btn-primary btn-md" id="viewIw"
-						onclick="viewIW()">View Ideal Weight for Me</button>
+					<button class="button button:active" id="viewIw"
+						onclick="viewIW()">View Ideal Weight</button>
 					<%if (request.getAttribute("ibw") != null) {%>
-					<p name="ibw"><%=request.getAttribute("ibw")%></p>
+					<p name="ibw" align="center"><font size="4" color="#00007f"><%=request.getAttribute("ibw")%></p>
 					<%}%>
 					<br />
 					<br />
 					</form>
 					<form role="from" action="HomeServlet" method="post">
 					<input type="hidden" id="calculateAction" name="calculateAction" value="exercise" />
-					<button class="btn btn-primary btn-md" id="viewExer"
+					<button class="button button:active" id="viewExer"
 						onclick="viewExer()">View Exercise</button>
 					<br />
 					<br />
 					</form>
 					<form role="from" action="HomeServlet" method="post">
 					<input type="hidden" id="calculateAction" name="calculateAction" value="dietplan" />
-					<button class="btn btn-primary btn-md" id="viewDietPlan"
+					<button class="button button:active" id="viewDietPlan"
 						onclick="viewDietPlan()">View Diet Plan</button>
 					</form>
-					
 				</div>
-			</div>
+				<div class="section_right">
+					   <p class="large_font"><u>My profile</u></p>
+					   <div class="small_font" style='float:left; width:50%; margin-left:20px'>
+					   <p>First-Name   : ${userProfile.getFirstname()}</p>
+					   <p>Last-Name    : ${userProfile.getLastname()}</p>
+					   <p>Age          : ${userProfile.getAge()}</p>
+					   <p>Height       : ${userProfile.getHeight()}</p>
+					   <p>Weight       : ${userProfile.getWeight()}</p>
+					   </div>
+					   <div class="small_font" style='float:left; width:40%; margin-left:30px'>
+					   <p>Gender       : ${userProfile.getGender()}</p>
+					   <p>Body-shape   : ${userProfile.getBodyshape()}</p>
+					   <p>Food         : ${userProfile.getFood()}</p>
+					   <p>Goal         : ${userProfile.getGoal()}</p>
+					   <p>Time-frame   : ${userProfile.getTimeFrame()}</p>
+					   </div>
 		</div>
+	</div>
 </body>
 </html>

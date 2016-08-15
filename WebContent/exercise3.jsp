@@ -32,7 +32,6 @@
 	<div class="row">
 		<div class="container col-md-2">
 		</div>
-		
 		<div class="container col-md-8 main">
 			<h1>Body shape: Curvy/Hourglass Shaped</h1>
 			<p><u>Cardio</u>
