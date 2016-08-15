@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import com.dietplanner.valueobjects.ProfileVO;
 
@@ -16,7 +18,33 @@ public class ProfileDAO {
 	static ResultSet rs = null;
 	private static int success;
 
-	public static ProfileVO validateProfile(int userId) {
+	public static boolean validateProfile(int userId) {
+		
+		status = false;
+		
+	    try {  
+	    	con = mysql.createConnection();
+			String select = "select * from user_profile where user_id = ?";
+			pst = con.prepareStatement(select);
+			pst.setInt(1, userId);
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				status = true;
+			} 
+	    } catch (Exception e) {  
+	        System.out.println(e);  
+	    } finally {  
+	    	try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	    }
+		return status;
+	}
+
+	public static ProfileVO getProfile(int userId) {
 	    try {  
 	    	con = mysql.createConnection();
 			String select = "select * from user_profile where user_id = ?";
@@ -36,6 +64,8 @@ public class ProfileDAO {
 				userProfile.setFood(rs.getString(9));
 				userProfile.setGoal(rs.getString(10));
 				userProfile.setTimeFrame(rs.getString(11));
+				userProfile.setStartDate(rs.getString(12));
+				userProfile.setEndDate(rs.getString(13));
 			} 
 	    } catch (Exception e) {  
 	        System.out.println(e);  
@@ -51,8 +81,16 @@ public class ProfileDAO {
 
 	public static boolean createProfile(ProfileVO userProfile) {
 	    try {  
+	    	String[] startDateArr = userProfile.getStartDate().split("/", 3);
+	    	Calendar startDate = Calendar.getInstance();
+	    	startDate.set(Integer.parseInt(startDateArr[0]), Integer.parseInt(startDateArr[1]), Integer.parseInt(startDateArr[2]));
+	    	startDate.add(startDate.MONTH, 1);
+	    	
+	    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	    	String endDate = format.format(startDate.getTime());
+	    	
 	    	con = mysql.createConnection();
-			String insert = "insert into user_profile values(?,?,?,?,?,?,?,?,?,?,?)";
+			String insert = "insert into user_profile values(?,?,?,?,?,?,?,?,?,?,?,?)";
 			pst = con.prepareStatement(insert);
 			pst.setInt(1, userProfile.getUserId());
 			pst.setString(2, userProfile.getFirstname());
@@ -65,6 +103,8 @@ public class ProfileDAO {
 			pst.setString(9, userProfile.getFood());
 			pst.setString(10, userProfile.getGoal());
 			pst.setString(11, userProfile.getTimeFrame());
+			pst.setString(12, userProfile.getStartDate());
+			pst.setString(13, endDate);
 			success = pst.executeUpdate();
 			
 			if (success > 0) {
@@ -84,4 +124,32 @@ public class ProfileDAO {
 	    }
 	    return status;
 	}
+
+	public static boolean updateProfile(int userId, int dietId) {
+	    try {  
+	    	con = mysql.createConnection();
+			String update = "alter table user_profile set diet_id = ? where user_id = ?";
+			pst = con.prepareStatement(update);
+			pst.setInt(1, userId);
+			pst.setInt(2, dietId);
+			success = pst.executeUpdate();
+			
+			if (success > 0) {
+				status = true;
+			} else {
+				status = false;
+			}
+			
+	    } catch (Exception e) {  
+	        System.out.println(e);  
+	    } finally {  
+	    	try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	    }
+	    return status;
+	}
+
 }

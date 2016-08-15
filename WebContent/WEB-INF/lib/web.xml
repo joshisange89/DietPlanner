@@ -22,4 +22,8 @@
     <servlet-name>registerUser</servlet-name>
     <url-pattern>/RegisterUserServlet</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SaveProfileServlet</servlet-name>
+    <url-pattern>/CreateProfile.jsp</url-pattern>
+  </servlet-mapping>
 </web-app>

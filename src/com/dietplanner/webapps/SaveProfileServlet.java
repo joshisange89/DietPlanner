@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.dietplanner.dao.ProfileDAO;
+import com.dietplanner.valueobjects.DietVO;
 import com.dietplanner.valueobjects.ProfileVO;
 
 
@@ -23,6 +24,7 @@ import com.dietplanner.valueobjects.ProfileVO;
 public class SaveProfileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ProfileVO userProfile = new ProfileVO();
+	DietVO diet = new DietVO();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -36,8 +38,12 @@ public class SaveProfileServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		HttpSession session = request.getSession(false);
+		int userId = (int) session.getAttribute("userId");
+		userProfile = ProfileDAO.getProfile(userId);
+		session.setAttribute("userProfile", userProfile);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("CreateProfile.jsp");
+	    requestDispatcher.forward(request, response);
 	}
 
 	/**
@@ -59,6 +65,7 @@ public class SaveProfileServlet extends HttpServlet {
         String food = null;
         String goal = null;
         String timeframe = null;
+        String startDate = null;
        
         firstname = request.getParameter("firstname");
         lastname = request.getParameter("lastname");
@@ -71,6 +78,7 @@ public class SaveProfileServlet extends HttpServlet {
         food = request.getParameter("food");
         goal = request.getParameter("goal");
         timeframe = request.getParameter("timeframe");
+        startDate = request.getParameter("startDate");
         
         height = Integer.parseInt(hfeet) * 12 + Integer.parseInt(hinches); 
         
@@ -85,13 +93,16 @@ public class SaveProfileServlet extends HttpServlet {
         userProfile.setFood(food);
         userProfile.setGoal(goal);
         userProfile.setTimeFrame(timeframe);
+        userProfile.setStartDate(startDate);
         
         if (ProfileDAO.createProfile(userProfile)) {
-    		session.setAttribute("userProfile", userProfile);
+        	diet = DietPlanDAO.getDietPlan(userProfile.getUserId(), userProfile.getFood(), userProfile.getGoal(), userProfile.getTimeFrame());
+        	ProfileDAO.updateProfile(userProfile.getUserId(), diet.getDietId());
+    		session.setAttribute("userId", userProfile.getUserId());
+    		session.setAttribute("dietPlan", diet);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
 		    requestDispatcher.forward(request, response);
 		    return;
         }
 	}
-
 }

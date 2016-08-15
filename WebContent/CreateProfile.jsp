@@ -1,3 +1,4 @@
+<%@page import="com.dietplanner.valueobjects.ProfileVO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -28,6 +29,14 @@
     </ul>
 </nav>
 
+<%
+	ProfileVO userProfile = new ProfileVO();
+	userProfile = (ProfileVO) session.getAttribute("userProfile");
+	if (userProfile != null){
+		int feet = userProfile.getHeight() / 12;
+		int inches = userProfile.getHeight() % 12;
+%>
+
 <div class="container">
 	<div class="row">
 		<div class="container col-md-2">
@@ -39,36 +48,36 @@
 				<div class="form-group">
 					<label for="firstname" class="control-label col-md-3" >First Name: </label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name">
+						<input type="text" class="form-control" id="firstname" name="firstname" value="<%= userProfile.getFirstname()%>" placeholder="First Name">
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label for="lastname" class="control-label col-md-3" >Last Name: </label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" id="lastname" name="lastname" placeholder="Height">
+						<input type="text" class="form-control" id="lastname" name="lastname"  value="<%= userProfile.getLastname() %>" placeholder="Last Name">
 					</div>
 				</div>
 			
 				<div class="form-group">
 					<label for="height" class="control-label col-md-3" >Height: </label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" id="feet" name="feet" placeholder="Feet">
-						<input type="text" class="form-control" id="inches" name="inches" placeholder="Inches">
+						<input type="text" class="form-control" id="feet" name="feet" value="<%= feet %>" placeholder="Feet">
+						<input type="text" class="form-control" id="inches" name="inches" value="<%= inches %>" placeholder="Inches">
 					</div>
 				</div>
 				
 				<div class="form-group">	
 					<label for="weight" class="control-label col-md-3" >Weight: </label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" id="weight" name="weight" placeholder="Weight (lbs)" >
+						<input type="text" class="form-control" id="weight" name="weight" value="<%= userProfile.getWeight() %>" placeholder="Weight (lbs)" >
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label for="age" class="control-label col-md-3" >Age:</label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" id="age" name="age" placeholder="age" >
+						<input type="text" class="form-control" id="age" name="age" value="<%= userProfile.getAge() %>" placeholder="age" >
 					</div>
 				</div>
 				
@@ -76,10 +85,10 @@
 					<label for="gender" class="control-label col-md-3" >Gender: </label>
 					<div class="col-md-9">
 						<label class="radio-inline">
-							<input type="radio" id="gender" name="gender" onclick="changeBody(this.value)" value="male" checked>Male
+							<input type="radio" id="male" name="gender" onclick="changeBody(this.value)" value="male" checked>Male
 						</label>
 						<label class="radio-inline">
-							<input type="radio" id="gender" name="gender" onclick="changeBody(this.value)" value="female" >Female
+							<input type="radio" id="female" name="gender" onclick="changeBody(this.value)" value="female" >Female
 						</label>
 					</div>
 				</div>
@@ -89,7 +98,7 @@
 					<div class="col-md-9">
 						<div class="row">
 							<div class="col-md-8">
-								<select size="6" class="form-control" id="body" name="body">
+								<select size="6" class="form-control" id="mbody" name="body" value = "<%= userProfile.getBodyshape()%>" >
 									<option value="inverted">Inverted Triangle</option>
 									<option value="rectangle">Rectangle</option>
 									<option value="triangle">Triangle</option>
@@ -110,7 +119,7 @@
 					<div class="col-md-9">
 						<div class="row">
 							<div class="col-md-8">
-								<select size="6" class="form-control" id="body" name="body">
+								<select size="6" class="form-control" id="fbody" name="body">
 									<option value="inverted">Inverted Triangle</option>
 									<option value="rectangle">Rectangle</option>
 									<option value="triangle">Triangle</option>
@@ -131,10 +140,10 @@
 					<label for="food" class="control-label col-md-3" >Food: </label>
 					<div class="col-md-9">
 						<label class="radio-inline">
-							<input type="radio" id="food" name="food" value="veg" checked>Vegetarian
+							<input type="radio" id="veg" name="food" value="veg" checked>Vegetarian
 						</label>
 						<label class="radio-inline">
-							<input type="radio" id="food" name="food" value="nonveg" >Non-Vegetarian
+							<input type="radio" id="nonveg" name="food" value="nonveg" >Non-Vegetarian
 						</label>
 					</div>
 				</div>
@@ -143,10 +152,10 @@
 					<label for="goal" class="control-label col-md-3" >Goal:</label>
 					<div class="col-md-9">
 						<label class="radio-inline">
-							<input type="radio" id="goal" name="goal" value="weightGain" checked>Gain Weight
+							<input type="radio" id="weightGain" name="goal" value="weightGain" checked>Gain Weight
 						</label>
 						<label class="radio-inline">
-							<input type="radio" id="goal" name="goal" value="weightLose">Lose Weight
+							<input type="radio" id="weightLose" name="goal" value="weightLose">Lose Weight
 						</label>
 					</div>
 				</div>
@@ -162,12 +171,54 @@
 					</div>
 				</div>
 				
+				<div class="form-group">
+					<label for="startDate" class="control-label col-md-3" >Start Date:</label>
+					<div class="col-md-9">
+					<input type="date" id="startDate" name="startDate">
+					</div>
+				</div>
+				
+<%
+	}
+%>
 				<button class="btn btn-primary btn-block" id="bsave">Save Profile</button>
 			</form>
 		</div>
 	</div>
 </div>
 <script>
+var gender = "<%= userProfile.getGender() %>";
+var bodyShape = "<%= userProfile.getBodyshape() %>";
+var food = "<%= userProfile.getFood() %>";
+var goal = "<%= userProfile.getGoal() %>";
+
+if ( gender == "male" ) {
+	document.getElementById("male").checked = true;
+	document.getElementById("maleBody").style.display = "block";
+	document.getElementById("femaleBody").style.display = "none";
+	document.getElementById("mbody").value = bodyShape;
+} else if ( gender == "female") {
+	document.getElementById("female").checked = true;
+	document.getElementById("maleBody").style.display = "none";
+	document.getElementById("femaleBody").style.display = "block";
+	document.getElementById("fbody").value = bodyShape;
+}
+
+if ( food == "veg" ) {
+	document.getElementById("veg").checked = true;
+} else if ( food == "nonveg") {
+	document.getElementById("nonveg").checked = true;
+}
+
+if ( goal == "weightGain" ) {
+	document.getElementById("weightGain").checked = true;
+} else if ( goal == "weightLose") {
+	document.getElementById("weightLose").checked = true;
+}
+
+var timeframe = "<%= userProfile.getTimeFrame() %>";
+document.getElementById("timeframe").value = timeframe;
+
 
 function changeBody(gender) {
 		

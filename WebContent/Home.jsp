@@ -16,13 +16,16 @@
 </head>
 
 <body>
+<%
+	session.setAttribute("userId", session.getAttribute("userId"));
+%>
 <nav class="navbar navbar-default container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#"><img src="logo1.png" width="50%"></a>
     </div>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="home.html">Home</a></li>
-      <li><a href="create_profile.html">Edit Profile</a></li>
+      <li><a href="SaveProfileServlet">Edit Profile</a></li>
       <li><a href="#">Extra Pounds</a></li>
 	  <li><a href="#">Log Out</a></li>
     </ul>
@@ -32,18 +35,44 @@
 	<div class="row">
 		<div class="contaier col-md-4">
 			<div class="leftside">
-			<button class="btn btn-primary btn-md" id="viewBmi" onclick="viewBMI()">View My BMI</button><br/><br/>
-			<button class="btn btn-primary btn-md" id="viewIw" onclick="viewIW()">View Ideal Weight for Me</button><br/><br/>
-			<button class="btn btn-primary btn-md" id="viewExer" onclick="viewExer()">View Exercise</button><br/><br/>
+					<form role="form" action="HomeServlet" method="post">
+				    <input type="hidden" id="calculateAction" name="calculateAction" value="bmi" />
+						<button class="button button:active" id="viewBmi"
+							onclick="viewBMI()">View My BMI</button>
+						<%if (request.getAttribute("bmi") != null) {%>
+					    <p name="bmi" align="center"><font size="4" color="#00007f"><%=request.getAttribute("bmi")%></font></p>
+					    <%}%>
+						<br />
+						<br />
+					</form>
+					<form role="form" action="HomeServlet" method="post">
+					<input type="hidden" id="calculateAction" name="calculateAction" value="ibw" />
+					<button class="button button:active" id="viewIw"
+						onclick="viewIW()">View Ideal Weight</button>
+					<%if (request.getAttribute("ibw") != null) {%>
+					<p name="ibw" align="center"><font size="4" color="#00007f"><%=request.getAttribute("ibw")%></p>
+					<%}%>
+					<br />
+					<br />
+					</form>
+					<form role="from" action="HomeServlet" method="post">
+					<input type="hidden" id="calculateAction" name="calculateAction" value="exercise" />
+					<button class="button button:active" id="viewExer"
+						onclick="viewExer()">View Exercise</button>
+					<br />
+					<br />
+					</form>
 			</div>
 		</div>
 		<div class="contaier col-md-8">
 			<div class="main">
-			<h2>Your Diet Plan</h2>
-			<h3>Breakfast:</h3>
-			<h3>Lunch:</h3>
-			<h3>Snacks:</h3>
-			<h3>Dinner:</h3>
+				<form role="from" action="HomeServlet" method="post">
+					<input type="hidden" id="calculateAction" name="calculateAction" value="dietplan" />
+					<button class="button button:active" id="viewDietPlan"
+						onclick="viewDietPlan()">View Diet Plan</button>
+				</form>
+
+				<h4><a href="Track.jsp">Track Your Diet</a></h4>
 			</div>
 		</div>
 	</div>
