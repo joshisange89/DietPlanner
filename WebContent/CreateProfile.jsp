@@ -234,5 +234,9 @@ if (userProfile != null){
 %>
 </script>
 
+<footer>
+ 	<small>&copy; Copyright by <a href="#">Diet Planner</a> | Design by Vague Team</a></small>
+</footer>
+
 </body>
 </html>

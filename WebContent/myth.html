@@ -1,0 +1,116 @@
+<!doctype html>
+<html ng-app="dietApp">
+<head>
+<meta charset="utf-8">
+<title>Diet Planner</title>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href='https://fonts.googleapis.com/css?family=Amarante' rel='stylesheet' type='text/css'>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+<script type="text/javascript" src="scripts/jquery.rwdImageMaps.min.js"></script>
+<link rel="stylesheet" type="text/css" href="style3.css">
+<link rel="stylesheet" type="text/css" href="stylec.css">
+<link href='https://fonts.googleapis.com/css?family=Noto+Serif' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body id="myth">
+	<nav class="navbar navbar-default container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#"><img src="logo1.png" width="50%"></a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Edit Profile</a></li>
+      <li><a href="#">Extra Pounds</a></li>
+	  <li><a href="#">Log Out</a></li>
+    </ul>
+</nav>
+	
+	
+<div class="container"> 
+	</br>
+	</br>
+	</br>
+	<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Open</span>
+	<div id="mySidenav" class="sidenav">
+		  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+		  <a href="#">Women Care</a>
+		  <a href="addons.html" >Myth Busters</a>
+		  <a href="alternatecrav.html">Alternatives to Cravings</a>
+	</div>
+	<div id ="main">
+		<em>Separating food facts from fiction</em>
+	</br>
+		There’s so much advice floating around on what to eat (and not eat), it can be hard to sift out the truth.
+	</br>
+		Every day, it seems that there’s a new “superfood” on the block promoting unique weight loss and health benefits.
+	</br>
+		And many times every day, a new nutrition article is published regurgitating food myths that have long since been
+		</br> proven false by science.It’s a sad truth that nutrition news is filled with blatantly false information despite scientific facts. 
+	</br>So we went in search of the most repeated food myths that still persist today in spite of evidence proving the opposite.
+
+		<h2 class="w3-center">Myth Busters</h2>
+
+		<div class="w3-content" style="max-width:800px;position:relative">
+
+		<img class="mySlides" src="m1.png" style="width:100%">
+		<img class="mySlides" src="m2.png" style="width:100%">
+		<img class="mySlides" src="m3.png" style="width:100%">
+		<img class="mySlides" src="m4.png" style="width:100%">
+		<img class="mySlides" src="m5.png" style="width:100%">
+
+
+		<a class="w3-btn-floating" style="position:absolute;top:45%;left:5%" onclick="plusDivs(-1)">❮</a>
+		<a class="w3-btn-floating" style="position:absolute;top:45%;right:5%" onclick="plusDivs(1)">❯</a>
+
+		</div>
+
+		<script>
+		var slideIndex = 1;
+		showDivs(slideIndex);
+
+		function plusDivs(n) {
+		  showDivs(slideIndex += n);
+		}
+
+		function showDivs(n) {
+		  var i;
+		  var x = document.getElementsByClassName("mySlides");
+		  if (n > x.length) {slideIndex = 1}    
+		  if (n < 1) {slideIndex = x.length}
+		  for (i = 0; i < x.length; i++) {
+		     x[i].style.display = "none";  
+		  }
+		  x[slideIndex-1].style.display = "block";  
+		}
+		</script>
+
+
+
+	</div>
+	
+	
+
+
+</div>
+
+<script>
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    
+    document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+ 
+    document.body.style.backgroundColor = "rgba(179,204,204,0)";
+}
+</script>
+
+
+</body>
+

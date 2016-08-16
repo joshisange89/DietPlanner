@@ -1,0 +1,132 @@
+#main {
+	
+	  font-family:'Amarante', cursive;
+    color: #000080;
+    margin-left: auto;
+    margin-right: auto;
+    text-indent: 50px;
+    width: 60em;
+    font-size: 15px;
+    font-style: italic;
+    text-align: center;
+    transition: margin-left .5s;
+    padding: 16px;
+    box-shadow: 10px;
+    
+}
+.container span{
+    font-family:'Amarante', cursive;
+    color:#00004d;
+    font-weight: bold;
+    top: 0%;
+
+}
+
+.sidenav {
+    height: 50%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 20%;
+    left: 0;
+    background-color:  #00004d;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #0eabe6;
+    display: block;
+    transition: 0.3s
+}
+
+
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.w3-btn-floating{
+   
+ display: inline-block;
+text-align: center;
+color: #fff;
+background-color: #00004d;
+position: relative;
+overflow: hidden;
+z-index: 1;
+padding: 0;
+border-radius: 50%;
+cursor: pointer;
+font-size: 20px;
+width: 40px;
+height: 40px;
+line-height: 45px;
+text-align: center;
+overflow: hidden;
+text-indent: -1%;
+font-style: normal;
+
+
+}
+a:hover{
+text-decoration: none;
+}
+.mySlides{
+    opacity: 0.6;
+}
+
+#myth{
+
+    background: url("my_bg4.jpg") no-repeat center center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+}
+#alternate{
+
+    background: url("crav_bg1.jpg") no-repeat center center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+
+}
+#maina {
+    
+      font-family:'Amarante', cursive;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    text-indent: 50px;
+    width: 60em;
+    font-size: 15px;
+    font-style: italic;
+    text-align: center;
+    transition: margin-left .5s;
+    padding: 16px;
+    box-shadow: 10px;
+    
+}
+#women{
+
+    background: url("wom_bg.jpg") no-repeat center center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+}
