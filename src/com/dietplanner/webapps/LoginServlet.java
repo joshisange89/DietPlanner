@@ -19,6 +19,10 @@ import com.dietplanner.valueobjects.*;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	UserVO user = new UserVO();
+	ProfileVO userProfile = new ProfileVO();
+	DietVO diet = new DietVO();
+
     /**
      * Default constructor. 
      */
@@ -39,10 +43,6 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		UserVO user = new UserVO();
-		ProfileVO userProfile = new ProfileVO();
-		DietVO diet = new DietVO();
-
 		response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         HttpSession session = request.getSession(false);
@@ -53,10 +53,11 @@ public class LoginServlet extends HttpServlet {
         password = request.getParameter("password");
         
         user = LoginDAO.validateUser(emailId, password);
+        int userId = user.getUserId();
         
         if (user.getEmailId() != null && user.getPassword() != null) {
        
-        	if (ProfileDAO.validateProfile(user.getUserId())) {
+        	if (ProfileDAO.validateProfile(userId)) {
             	diet = DietPlanDAO.getDietPlan(user.getUserId());
             	userProfile = ProfileDAO.getProfile(user.getUserId());
         		session.setAttribute("userProfile", userProfile);
@@ -66,7 +67,7 @@ public class LoginServlet extends HttpServlet {
     		    return;
         	}
         	else {
-        		session.setAttribute("userId", user.getUserId());
+        		session.setAttribute("userId", userId);
     			RequestDispatcher requestDispatcher = request.getRequestDispatcher("CreateProfile.jsp");
     		    requestDispatcher.forward(request, response);
     		    return;

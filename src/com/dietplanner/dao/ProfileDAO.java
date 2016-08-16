@@ -80,17 +80,22 @@ public class ProfileDAO {
 	}
 
 	public static boolean createProfile(ProfileVO userProfile) {
-	    try {  
-	    	String[] startDateArr = userProfile.getStartDate().split("/", 3);
-	    	Calendar startDate = Calendar.getInstance();
-	    	startDate.set(Integer.parseInt(startDateArr[0]), Integer.parseInt(startDateArr[1]), Integer.parseInt(startDateArr[2]));
-	    	startDate.add(startDate.MONTH, 1);
+		
+	    try {	 
+	    	String startDate = userProfile.getStartDate();
+	    	String endDate = startDate;
+	    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	    	Calendar c = Calendar.getInstance();
+	    	c.setTime(sdf.parse(endDate));
+
+	    	int duration = Integer.parseInt(userProfile.getTimeFrame().replaceAll("[^\\d]", ""));
+	    	c.add(Calendar.MONTH, duration);
 	    	
-	    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-	    	String endDate = format.format(startDate.getTime());
+	    	endDate = sdf.format(c.getTime());
+	    	int dietId = DietPlanDAO.getDietPlanId(userProfile.getFood(), userProfile.getGoal(), userProfile.getTimeFrame());
 	    	
 	    	con = mysql.createConnection();
-			String insert = "insert into user_profile values(?,?,?,?,?,?,?,?,?,?,?,?)";
+			String insert = "insert into user_profile values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			pst = con.prepareStatement(insert);
 			pst.setInt(1, userProfile.getUserId());
 			pst.setString(2, userProfile.getFirstname());
@@ -103,8 +108,9 @@ public class ProfileDAO {
 			pst.setString(9, userProfile.getFood());
 			pst.setString(10, userProfile.getGoal());
 			pst.setString(11, userProfile.getTimeFrame());
-			pst.setString(12, userProfile.getStartDate());
+			pst.setString(12, startDate);
 			pst.setString(13, endDate);
+			pst.setInt(14, dietId);
 			success = pst.executeUpdate();
 			
 			if (success > 0) {

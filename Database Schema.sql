@@ -47,18 +47,18 @@ values ("2-3 eggs + 2 toast + 1 bowl of full milk with cereal Or a bowl oats/por
 		"1 serving of chicken/ fish or egg or non-veg Pasta with either olive oil)",
 		"non veg sandwich can add cheese / mayo",
 		"2 toast with Roast / grilled Chicken or Baked fish with potatoes",
-		"non-veg",
-		"Weight Gain",
-		"1 Month");
+		"nonveg",
+		"weightGain",
+		"1month");
 
 insert into diet_plan (breakfast, lunch, snack, dinner, food, goal, time_frame)
 values ("Omlette,Toasted bread",
 		"Grilled chicken and Strawberries",
 		"1 glass of Banana shake",
 		"1 bowl Chicken soup or Baked fish with potatoes",
-		"non-veg",
-		"Weight Gain",
-		"2 Month");
+		"nonveg",
+		"weightGain",
+		"2month");
 
 insert into diet_plan (breakfast, lunch, snack, dinner, food, goal, time_frame) 
 values ("German Apple Pancake + Strawberries and Skim milk",
@@ -66,8 +66,8 @@ values ("German Apple Pancake + Strawberries and Skim milk",
 		"veg sandwich can add cheese / mayo",
 		"2 toast with Roast and Milkshake",
 		"veg",
-		"Weight Gain",
-		"1 Month");
+		"weightGain",
+		"1month");
 		
 insert into diet_plan (breakfast, lunch, snack, dinner, food, goal, time_frame) 
 values ("Vegetable Oats and Banana Milkshake",
@@ -75,26 +75,26 @@ values ("Vegetable Oats and Banana Milkshake",
 		"1 bowl Vegetable soup",
 		"Same as lunch",
 		"veg",
-		"Weight Gain",
-		"2 Month");
+		"weightGain",
+		"2month");
 		
 insert into diet_plan (breakfast, lunch, snack, dinner, food, goal, time_frame)
 values ("Coffee Or Tea + Toast with Ham",
 		"Beef steak + Chicken soup",
 		"Natural yogurt fat free Or 1 whole fruit",
 		"Grilled fish prawn Or grilled Chicken Or Baked fish",
-		"non-veg",
-		"Weight Lose",
-		"1 Month");
+		"nonveg",
+		"weightLose",
+		"1month");
 
 insert into diet_plan (breakfast, lunch, snack, dinner, food, goal, time_frame) 
 values ("2 Boiled Eggs whole milk",
 		"Toast with white cheese Tuna Salad",
 		"Walnuts Or 1 whole fruit",
 		"Green Sepia Tomato salad Or Baked fish",
-		"non-veg",
-		"Weight Lose",
-		"2 Month");
+		"nonveg",
+		"weightLose",
+		"2month");
 
 insert into diet_plan (breakfast, lunch, snack, dinner, food, goal, time_frame) 
 values ("Natural yogurt fat free Seeds and fruit cereal",
@@ -102,8 +102,8 @@ values ("Natural yogurt fat free Seeds and fruit cereal",
 		"Walnuts Or 2 pears",
 		"Steamed broccoli Baked sweet potato Or Light margarin",
 		"veg",
-		"Weight Lose",
-		"1 Month");
+		"weightLose",
+		"1month");
 		
 insert into diet_plan (breakfast, lunch, snack, dinner, food, goal, time_frame) 
 values ("Whole milk Toast with white cheese",
@@ -111,5 +111,5 @@ values ("Whole milk Toast with white cheese",
 		"Walnuts Or low fat cottage cheese",
 		"Grilled Sepia Tomato salad Or Lean Protein",
 		"veg",
-		"Weight Lose",
-		"2 Month");
+		"weightLose",
+		"2month");

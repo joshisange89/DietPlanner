@@ -18,23 +18,27 @@
 </head>
 
 <body>
+
 <nav class="navbar navbar-default container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#"><img src="logo1.png" width="50%"></a>
     </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="HomeServlet">Home</a></li>
+      <li><a href="SaveProfileServlet">Edit Profile</a></li>
+      <li><a href="addons.html">Extra Pounds</a></li>
+	  <li><a href="Login.jsp">Log Out</a></li>
+    </ul>
 </nav>
-
-<h1> Hi, <%= session.getAttribute("userId")%> </h1>
-
 
 <div class="container">
 	<div class="row">
 		<div class="col-md-7">
 			<div class="badges">
 				<p>Earned Badges: </p>
-				<img src="http://www.freeiconspng.com/uploads/badge-icon-png-22.png" width="100">
-				<img src="http://www.tmports.com/files/imgs/winners_badge.png" width="100">
-				<img src="http://www.inf.ufrgs.br/~vcazevedo/images/winner_medal.png" width="150">
+				<img id="badge1_img src="" width="100">
+				<img id="badge2_img src="" width="100">
+				<img id="badge3_img src="" width="150">
 			</div>
 			<div class="track_week">
 				<p id="error"></p>
@@ -46,46 +50,39 @@
 					<img id="arrows" src="prev.png" width="30" onclick="displayPrevWeek()">
 				</div>				
 				<div class="week">
-						<button id="checkmark1" onclick="markDone(this)"></button>
-						<p id="dayOfWeek1"></p>
-						<p id="day1"></p>		
+					<button id="checkmark1" onclick="markDone(this)"></button>
+					<p id="dayOfWeek1"></p>
+					<p id="day1"></p>		
 				</div>
 				<div class="week">
-						<button id="checkmark2" onclick="markDone(this)"></button>
-						<p id="dayOfWeek2"></p>
-						<p id="day2"></p>
+					<button id="checkmark2" onclick="markDone(this)"></button>
+					<p id="dayOfWeek2"></p>
+					<p id="day2"></p>
 				</div>
-				<div class="week">
-					
-						<button id="checkmark3" onclick="markDone(this)"></button>
-						<p id="dayOfWeek3"></p>
-						<p id="day3"></p>
-					
+				<div class="week">					
+					<button id="checkmark3" onclick="markDone(this)"></button>
+					<p id="dayOfWeek3"></p>
+					<p id="day3"></p>					
 				</div>
-				<div class="week">
-					
-						<button id="checkmark4" onclick="markDone(this)"></button>
-						<p id="dayOfWeek4"></p>
-						<p id="day4"></p>
-					
+				<div class="week">					
+					<button id="checkmark4" onclick="markDone(this)"></button>
+					<p id="dayOfWeek4"></p>
+					<p id="day4"></p>					
 					</div>
 				<div class="week">
-						<button id="checkmark5" onclick="markDone(this)"></button>
-						<p id="dayOfWeek5"></p>
-						<p id="day5"></p>
-					
+					<button id="checkmark5" onclick="markDone(this)"></button>
+					<p id="dayOfWeek5"></p>
+					<p id="day5"></p>					
 				</div>			
 				<div class="week">
-						<button id="checkmark6" onclick="markDone(this)"></button>
-						<p id="dayOfWeek6"></p>
-						<p id="day6"></p>
-					
+					<button id="checkmark6" onclick="markDone(this)"></button>
+					<p id="dayOfWeek6"></p>
+					<p id="day6"></p>					
 				</div>
 				<div class="week">
-						<button id="checkmark7" onclick="markDone(this)"></button>
-						<p id="dayOfWeek7"></p>
-						<p id="day7"></p>
-					
+					<button id="checkmark7" onclick="markDone(this)"></button>
+					<p id="dayOfWeek7"></p>
+					<p id="day7"></p>					
 				</div>
 				
 				<div class="next">
@@ -95,23 +92,65 @@
 		</div>
 		<div class="col-md-3">
 			<div id="chart_div"></div>
-		</div>		
+		</div>	
 	</div>
 </div>
 
-
 <script>
+
+TimeFrame: 
+	Track Days: <%= session.getAttribute("trackDays") %>
+	Start Date: <%= session.getAttribute("startDate") %>
+	End Date: <%= session.getAttribute("endDate") %>
+
+var trackDays = 0
+var timeFrame = "'<%= session.getAttribute("timeFrame") %>'";
+var progress;
+var badge1 = "http://www.freeiconspng.com/uploads/badge-icon-png-22.png";
+var badge2 = "http://www.tmports.com/files/imgs/winners_badge.png"
+var badge3 = "http://www.inf.ufrgs.br/~vcazevedo/images/winner_medal.png"
+
+if ( timeFrame == "1month" ) {
+	if ( trackDays >= 10 && trackDays < 21 ) {
+		document.getElementById("badge1_img").src = badge1;
+	} else if ( trackDays >= 20 && trackDays < 30 ) {
+		document.getElementById("badge2_img").src = badge2;
+	} else if ( trackDays >= 28 ) {
+		document.getElementById("badge3_img").src = badge3;
+	}
+	
+	progress = (trackDays / 30) * 100; 
+}
+
+if ( timeFrame == "2month" ) {
+	if ( trackDays >= 20 && trackDays < 41 ) {
+		document.getElementById("badge1_img").src = badge1;
+	} else if ( trackDays >= 40 && trackDays < 60 ) {
+		document.getElementById("badge2_img").src = badge2;
+	} else if ( trackDays >= 58 ) {
+		document.getElementById("badge3_img").src = badge3;
+	}
+	progress = (trackDays / 60) * 100;
+}
 
 var days = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday" ];
 var months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
 var today = new Date();
-displayWeek(today);
 
-function displayWeek(today) {
-	var prev_date = today;
-	var next_date = today;
+var start = "2016-09-01";
+var start_date = new Date(start);
 
-	var dow = today.getDay();
+var end = "2016-10-01";
+var end_date = new Date(end);
+
+displayWeek(start_date);
+
+function displayWeek(start_date) {
+	var prev_date = start_date;
+	var next_date = start_date;
+
+	var dow = start_date.getDay();
 	var prev = dow;
 	var next = dow;
 	var i = 1;
@@ -123,7 +162,7 @@ function displayWeek(today) {
 		months[prev_date.getMonth()]+" "+prev_date.getDate()+", "+prev_date.getFullYear();
 
 		prev = prev - 1;
-		prev_date = new Date(today.getTime() - 86400000 * i);
+		prev_date = new Date(start_date.getTime() - 86400000 * i);
 		i++;
 	}
 	
@@ -134,7 +173,7 @@ function displayWeek(today) {
 		months[next_date.getMonth()]+" "+next_date.getDate()+", "+next_date.getFullYear();
 
 		next = Number(next + 1);
-		next_date = new Date(today.getTime() + 86400000 * i);
+		next_date = new Date(start_date.getTime() + 86400000 * i);
 		i++;
 	}
 }
@@ -143,14 +182,18 @@ function markDone(ele) {
 	var selectedDate = document.getElementById("day"+ele.id.match(/\d/g)[0]).innerHTML;
 	var selectedDateObj = new Date(Date.parse(document.getElementById("day"+ele.id.match(/\d/g)[0]).innerHTML));
 	
-	if ( selectedDateObj <= today ) {
+	if ( selectedDateObj >= start_date && selectedDateObj <= today ) {
 		document.getElementById(ele.id).style.background = "url(\"check-mark.png\") no-repeat";
 		document.getElementById(ele.id).style.backgroundSize = "cover";
 		document.track.dayOfWeek.value = document.getElementById("dayOfWeek"+ele.id.match(/\d/g)[0]).innerHTML;
 		document.track.day.value = selectedDate;
 		document.track.submit();
-	} else {
-		document.getElementById("error").innerHTML = "Hey, how can you eat future day's diet today"
+	} else if ( selectedDateObj > today ) {
+		document.getElementById("error").innerHTML = "Hey, how can you eat future day's diet today";
+	} else if ( selectedDateObj < end_date  ) {
+		document.getElementById("error").innerHTML = "Your plan was not started on this date";
+	} else if ( selectedDateObj > end_date  ) {
+		document.getElementById("error").innerHTML = "Your plan has ended";
 	}
 }
 
@@ -168,10 +211,10 @@ google.charts.load('current', {'packages':['gauge']});
 google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
-
+	
 	var data = google.visualization.arrayToDataTable([
 	  ['Label', 'Value'],
-	  ['Progress', 80],
+	  ['Progress', progress],
 	]);
 
 	var options = {
@@ -184,11 +227,6 @@ function drawChart() {
 
 	var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
 	chart.draw(data, options);
-
-	setInterval(function() {
-		  data.setValue(0, 1, 60);
-		  chart.draw(data, options);
-	}, 13000);
 }
 	  
 </script>

@@ -22,7 +22,7 @@ public class DietTrackDAO {
 	static int success;
 	static String[] months = { "None", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
 
-	public static boolean Update(int userId, String dayOfWeek, String day) {
+	public static boolean UpdateTracking(int userId, String dayOfWeek, String day) {
 		
 		String month, dayDate, year;
 		month = day.split(" ", 3)[0];
@@ -54,5 +54,31 @@ public class DietTrackDAO {
 			}
 	    }
 		return status;		
+	}
+
+	public static int getTracking(int userId) {
+		
+		int trakdDays = 0;
+		
+	    try {
+	    	con = mysql.createConnection();
+			String select = "select count(user_id) from diet_track where user_id = ?";
+			pst = con.prepareStatement(select);
+			pst.setInt(1, userId);
+			rs = pst.executeQuery();
+	
+			if (rs.next()) {
+				trakdDays = rs.getInt(1);
+			} 
+	    } catch (Exception e) {
+	        System.out.println(e);
+	    } finally {  
+	    	try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	    }
+		return trakdDays;		
 	}
 }

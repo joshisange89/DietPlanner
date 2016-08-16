@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.dietplanner.dao.DietPlanDAO;
 import com.dietplanner.dao.ProfileDAO;
 import com.dietplanner.valueobjects.DietVO;
 import com.dietplanner.valueobjects.ProfileVO;
@@ -96,10 +97,11 @@ public class SaveProfileServlet extends HttpServlet {
         userProfile.setStartDate(startDate);
         
         if (ProfileDAO.createProfile(userProfile)) {
-        	diet = DietPlanDAO.getDietPlan(userProfile.getUserId(), userProfile.getFood(), userProfile.getGoal(), userProfile.getTimeFrame());
-        	ProfileDAO.updateProfile(userProfile.getUserId(), diet.getDietId());
-    		session.setAttribute("userProfile", userProfile);
+        	session.setAttribute("userProfile", userProfile);
+        	
+        	diet = DietPlanDAO.getDietPlan(userProfile.getUserId());        	    	
     		session.setAttribute("dietPlan", diet);
+    		
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
 		    requestDispatcher.forward(request, response);
 		    return;

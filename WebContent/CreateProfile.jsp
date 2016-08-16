@@ -22,19 +22,21 @@
       <a class="navbar-brand" href="#"><img src="logo1.png" width="50%"></a>
     </div>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Edit Profile</a></li>
-      <li><a href="#">Extra Pounds</a></li>
-	  <li><a href="#">Log Out</a></li>
+      <li><a href="HomeServlet">Home</a></li>
+      <li><a href="SaveProfileServlet">Edit Profile</a></li>
+      <li><a href="addons.html">Extra Pounds</a></li>
+	  <li><a href="Login.jsp">Log Out</a></li>
     </ul>
 </nav>
 
 <%
 	ProfileVO userProfile = new ProfileVO();
 	userProfile = (ProfileVO) session.getAttribute("userProfile");
-	if (userProfile != null){
+	
+	if ( userProfile != null ) {
 		int feet = userProfile.getHeight() / 12;
 		int inches = userProfile.getHeight() % 12;
+	}
 %>
 
 <div class="container">
@@ -48,36 +50,36 @@
 				<div class="form-group">
 					<label for="firstname" class="control-label col-md-3" >First Name: </label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" id="firstname" name="firstname" value="<%= userProfile.getFirstname()%>" placeholder="First Name">
+						<input type="text" class="form-control" id="firstname" name="firstname" value="${ userProfile.getFirstname() }" placeholder="First Name">
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label for="lastname" class="control-label col-md-3" >Last Name: </label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" id="lastname" name="lastname"  value="<%= userProfile.getLastname() %>" placeholder="Last Name">
+						<input type="text" class="form-control" id="lastname" name="lastname"  value="${ userProfile.getLastname() }" placeholder="Last Name">
 					</div>
 				</div>
 			
 				<div class="form-group">
 					<label for="height" class="control-label col-md-3" >Height: </label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" id="feet" name="feet" value="<%= feet %>" placeholder="Feet">
-						<input type="text" class="form-control" id="inches" name="inches" value="<%= inches %>" placeholder="Inches">
+						<input type="text" class="form-control" id="feet" name="feet" value="${ feet }"  placeholder="Feet">
+						<input type="text" class="form-control" id="inches" name="inches" value="${ inches }" placeholder="Inches">
 					</div>
 				</div>
 				
 				<div class="form-group">	
 					<label for="weight" class="control-label col-md-3" >Weight: </label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" id="weight" name="weight" value="<%= userProfile.getWeight() %>" placeholder="Weight (lbs)" >
+						<input type="text" class="form-control" id="weight" name="weight" value="${ userProfile.getWeight() }" placeholder="Weight (lbs)" >
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label for="age" class="control-label col-md-3" >Age:</label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" id="age" name="age" value="<%= userProfile.getAge() %>" placeholder="age" >
+						<input type="text" class="form-control" id="age" name="age" value="${ userProfile.getAge() }" placeholder="age" >
 					</div>
 				</div>
 				
@@ -98,12 +100,10 @@
 					<div class="col-md-9">
 						<div class="row">
 							<div class="col-md-8">
-								<select size="6" class="form-control" id="mbody" name="body" value = "<%= userProfile.getBodyshape()%>" >
-									<option value="inverted">Inverted Triangle</option>
-									<option value="rectangle">Rectangle</option>
-									<option value="triangle">Triangle</option>
-									<option value="oval">Oval</option>
-									<option value="rhomboid">Rhomboid</option>
+								<select size="6" class="form-control" id="mbody" name="body" value = "${ userProfile.getBodyshape() }" >									
+									<option value="straight">Straight</option>
+									<option value="apple">Apple</option>
+									<option value="pear">Pear</option>									
 								</select>
 							</div>
 							<!--
@@ -120,12 +120,10 @@
 						<div class="row">
 							<div class="col-md-8">
 								<select size="6" class="form-control" id="fbody" name="body">
-									<option value="inverted">Inverted Triangle</option>
-									<option value="rectangle">Rectangle</option>
-									<option value="triangle">Triangle</option>
-									<option value="oval">Oval</option>
-									<option value="rhomboid">Hourglass</option>
-									<option value="rhomboid">Diamond</option>
+									<option value="straight">Straight</option>
+									<option value="apple">Apple</option>
+									<option value="pear">Pear</option>
+									<option value="hourglass">Hourglass</option>
 								</select>
 							</div>
 							<!--
@@ -177,62 +175,64 @@
 					<input type="date" id="startDate" name="startDate" required>
 					</div>
 				</div>
-				
-<%
-	}
-%>
 				<button class="btn btn-primary btn-block" id="bsave">Save Profile</button>
 			</form>
 		</div>
 	</div>
 </div>
+
 <script>
-var gender = "<%= userProfile.getGender() %>";
-var bodyShape = "<%= userProfile.getBodyshape() %>";
-var food = "<%= userProfile.getFood() %>";
-var goal = "<%= userProfile.getGoal() %>";
-
-if ( gender == "male" ) {
-	document.getElementById("male").checked = true;
-	document.getElementById("maleBody").style.display = "block";
-	document.getElementById("femaleBody").style.display = "none";
-	document.getElementById("mbody").value = bodyShape;
-} else if ( gender == "female") {
-	document.getElementById("female").checked = true;
-	document.getElementById("maleBody").style.display = "none";
-	document.getElementById("femaleBody").style.display = "block";
-	document.getElementById("fbody").value = bodyShape;
-}
-
-if ( food == "veg" ) {
-	document.getElementById("veg").checked = true;
-} else if ( food == "nonveg") {
-	document.getElementById("nonveg").checked = true;
-}
-
-if ( goal == "weightGain" ) {
-	document.getElementById("weightGain").checked = true;
-} else if ( goal == "weightLose") {
-	document.getElementById("weightLose").checked = true;
-}
-
-var timeframe = "<%= userProfile.getTimeFrame() %>";
-document.getElementById("timeframe").value = timeframe;
-
-
-function changeBody(gender) {
-		
+<%
+if (userProfile != null){
+%>
+	var gender = "<%= userProfile.getGender() %>";
+	var bodyShape = "<%= userProfile.getBodyshape() %>";
+	var food = "<%= userProfile.getFood() %>";
+	var goal = "<%= userProfile.getGoal() %>";
+	
 	if ( gender == "male" ) {
+		document.getElementById("male").checked = true;
 		document.getElementById("maleBody").style.display = "block";
 		document.getElementById("femaleBody").style.display = "none";
-	}
-	else if ( gender == "female") {
+		document.getElementById("mbody").value = bodyShape;
+	} else if ( gender == "female") {
+		document.getElementById("female").checked = true;
 		document.getElementById("maleBody").style.display = "none";
 		document.getElementById("femaleBody").style.display = "block";
+		document.getElementById("fbody").value = bodyShape;
 	}
+	
+	if ( food == "veg" ) {
+		document.getElementById("veg").checked = true;
+	} else if ( food == "nonveg") {
+		document.getElementById("nonveg").checked = true;
+	}
+	
+	if ( goal == "weightGain" ) {
+		document.getElementById("weightGain").checked = true;
+	} else if ( goal == "weightLose") {
+		document.getElementById("weightLose").checked = true;
+	}
+	
+	var timeframe = "${ userProfile.getTimeFrame() }";
+	document.getElementById("timeframe").value = timeframe;
+	
+	
+	function changeBody(gender) {
+			
+		if ( gender == "male" ) {
+			document.getElementById("maleBody").style.display = "block";
+			document.getElementById("femaleBody").style.display = "none";
+		}
+		else if ( gender == "female") {
+			document.getElementById("maleBody").style.display = "none";
+			document.getElementById("femaleBody").style.display = "block";
+		}
+	}
+<%
 }
-
-
+%>
 </script>
+
 </body>
 </html>

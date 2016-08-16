@@ -3,6 +3,7 @@ package com.dietplanner.webapps;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.dietplanner.dao.DietTrackDAO;
+import com.dietplanner.valueobjects.ProfileVO;
 
 /**
  * Servlet implementation class DietTrackServlet
@@ -31,8 +33,17 @@ public class DietTrackServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		HttpSession session = request.getSession(false);
+		ProfileVO userProfile = new ProfileVO();
+		userProfile = (ProfileVO) session.getAttribute("userProfile");
+		int tracDays = DietTrackDAO.getTracking(userProfile.getUserId());
+		session.setAttribute("trackDays", tracDays);
+		session.setAttribute("timeFrame", userProfile.getTimeFrame());
+		session.setAttribute("startDate", userProfile.getStartDate());
+		session.setAttribute("endDate", userProfile.getEndDate());
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("Track.jsp");
+	    requestDispatcher.forward(request, response);
+	    return;
 	}
 
 	/**
@@ -48,7 +59,7 @@ public class DietTrackServlet extends HttpServlet {
        
         dayOfWeek = request.getParameter("dayOfWeek");
         day = request.getParameter("day");
-        DietTrackDAO.Update(userId, dayOfWeek, day);
+        DietTrackDAO.UpdateTracking(userId, dayOfWeek, day);
 	}
 
 }
