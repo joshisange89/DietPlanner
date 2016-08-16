@@ -40,6 +40,8 @@ public class SaveProfileServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
+		
+		userProfile = (ProfileVO) session.getAttribute("userProfile");
 		int userId = (int) session.getAttribute("userId");
 		userProfile = ProfileDAO.getProfile(userId);
 		session.setAttribute("userProfile", userProfile);

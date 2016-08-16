@@ -1,3 +1,4 @@
+<%@page import="com.dietplanner.valueobjects.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -19,6 +20,11 @@
 
 <body>
 
+<%
+	ProfileVO userProfile = new ProfileVO();
+	userProfile = (ProfileVO) session.getAttribute("userProfile");		
+%>
+
 <nav class="navbar navbar-default container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#"><img src="logo1.png" width="50%"></a>
@@ -35,10 +41,12 @@
 	<div class="row">
 		<div class="col-md-7">
 			<div class="badges">
-				<p>Earned Badges: </p>
-				<img id="badge1_img src="" width="100">
-				<img id="badge2_img src="" width="100">
-				<img id="badge3_img src="" width="150">
+				<p id="ebadge_note1"></p>
+				<p id="ebadge_note2"></p>
+				<p id="ebadge_note3"></p>
+				<img id="badge1_img width="100">
+				<img id="badge2_img width="100">
+				<img id="badge3_img width="150">
 			</div>
 			<div class="track_week">
 				<p id="error"></p>
@@ -47,8 +55,8 @@
 					<input type="hidden" name="day">
 				</form>
 				<div class="prev">
-					<img id="arrows" src="prev.png" width="30" onclick="displayPrevWeek()">
-				</div>				
+					<img id="arrows" src="prev.png" width="30" onclick="displayPrevWeek()">					
+				</div>
 				<div class="week">
 					<button id="checkmark1" onclick="markDone(this)"></button>
 					<p id="dayOfWeek1"></p>
@@ -90,45 +98,58 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-3 chart">
 			<div id="chart_div"></div>
+			<p>Forget 70% diet, 30% training <br/> It's 100% diet, 100% passion <br/>Nothing great was achieved with partial efforts</p>
 		</div>	
 	</div>
 </div>
 
 <script>
 
-TimeFrame: 
-	Track Days: <%= session.getAttribute("trackDays") %>
-	Start Date: <%= session.getAttribute("startDate") %>
-	End Date: <%= session.getAttribute("endDate") %>
+var trackDays = <%= (int) session.getAttribute("trackDays") %>;
+var timeFrame = "'${ userProfile.getTimeFrame() }'";
+var progress = 0 ;
 
-var trackDays = 0
-var timeFrame = "'<%= session.getAttribute("timeFrame") %>'";
-var progress;
 var badge1 = "http://www.freeiconspng.com/uploads/badge-icon-png-22.png";
 var badge2 = "http://www.tmports.com/files/imgs/winners_badge.png"
 var badge3 = "http://www.inf.ufrgs.br/~vcazevedo/images/winner_medal.png"
 
-if ( timeFrame == "1month" ) {
-	if ( trackDays >= 10 && trackDays < 21 ) {
+if ( timeFrame.localeCompare("1month") ) {
+	if ( trackDays < 10 ) {
+		document.getElementById("ebadge_note1").innerHTML = "Nothing Tastes As Good As BEING HEALTHY FEELS.. Common Earn Badges";
+		document.getElementById("ebadge_note2").innerHTML = "You will earn badge on achieving each 1/3 of milestone";
+	} else if ( trackDays >= 10 && trackDays < 21 ) {
 		document.getElementById("badge1_img").src = badge1;
+		document.getElementById("ebadge_note1").innerHTML = "Nothing Tastes As Good As BEING HEALTHY FEELS.. Common Earn Badges";
+		document.getElementById("ebadge_note2").innerHTML = "Good Job, You have Earned a Badge";
 	} else if ( trackDays >= 20 && trackDays < 30 ) {
 		document.getElementById("badge2_img").src = badge2;
+		document.getElementById("ebadge_note1").innerHTML = "Nothing Tastes As Good As BEING HEALTHY FEELS.. Common Earn Badges";
+		document.getElementById("ebadge_note2").innerHTML = "Great Job, You have Earned another Badge";
 	} else if ( trackDays >= 28 ) {
 		document.getElementById("badge3_img").src = badge3;
-	}
-	
+		document.getElementById("ebadge_note2").innerHTML = "Super Job, Milestone Accomplished. Congratulations!!!";
+	}	
 	progress = (trackDays / 30) * 100; 
 }
 
-if ( timeFrame == "2month" ) {
-	if ( trackDays >= 20 && trackDays < 41 ) {
+if ( timeFrame.localeCompare("2month") ) {
+	if ( trackDays < 20 ) {
+		document.getElementById("ebadge_note1").innerHTML = "Nothing Tastes As Good As BEING HEALTHY FEELS.. Common Earn Badges";
+		document.getElementById("ebadge_note2").innerHTML = "You will earn badge on achieving each 1/3 of milestone";		
+	}
+	else if ( trackDays >= 20 && trackDays < 41 ) {
 		document.getElementById("badge1_img").src = badge1;
+		document.getElementById("ebadge_note1").innerHTML = "Nothing Tastes As Good As BEING HEALTHY FEELS.. Common Earn Badges";
+		document.getElementById("ebadge_note2").innerHTML = "Good Job, You have Earned a Badge";
 	} else if ( trackDays >= 40 && trackDays < 60 ) {
 		document.getElementById("badge2_img").src = badge2;
+		document.getElementById("ebadge_note1").innerHTML = "Nothing Tastes As Good As BEING HEALTHY FEELS.. Common Earn Badges";
+		document.getElementById("ebadge_note2").innerHTML = "Great Job, You have Earned another Badge";
 	} else if ( trackDays >= 58 ) {
 		document.getElementById("badge3_img").src = badge3;
+		document.getElementById("ebadge_note2").innerHTML = "Super Job, Milestone Accomplished. Congratulations!!!";
 	}
 	progress = (trackDays / 60) * 100;
 }
@@ -138,10 +159,10 @@ var months = [ "January", "February", "March", "April", "May", "June", "July", "
 
 var today = new Date();
 
-var start = "2016-09-01";
+var start = "'${ userProfile.getStartDate() }'";
 var start_date = new Date(start);
 
-var end = "2016-10-01";
+var end = "'${ userProfile.getEndDate() } '";
 var end_date = new Date(end);
 
 displayWeek(start_date);

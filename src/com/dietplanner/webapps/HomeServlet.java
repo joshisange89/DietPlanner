@@ -41,7 +41,7 @@ public class HomeServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         
         userProfile = (ProfileVO) session.getAttribute("userProfile");
-        diet = DietPlanDAO.getDietPlan((int)session.getAttribute("userId"));    	
+        diet = DietPlanDAO.getDietPlan(userProfile.getUserId());    	
 		session.setAttribute("userProfile", userProfile);
 		session.setAttribute("dietPlan", diet);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");

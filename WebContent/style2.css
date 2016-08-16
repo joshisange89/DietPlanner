@@ -1,138 +1,66 @@
-/* -- Common --*/
-body {
-  font-family:'Amarante', cursive;
-  background-color: #80e1ff;
-}
-
-.navbar {
-  font-size: 1.4em;
-  background-color: #00004d;
-  padding: 1%;
-}
-
-.navbar-brand {
-	font-size: 1.4em;
-	padding: 1%;
-}
-
-.navbar-brand img {
-	margin-top: -8%;
-}
-
-.navbar a {
-    color: #0eabe6 !important;
-}
-
-.navbar a:hover {
-    color: #9ee1fa !important;
-}
-
-.container {
-	margin-top: 0%;
+#main {
 	
+	  font: italic bold 12px/30px Georgia, serif;
+    color: black;
+    margin-left: auto;
+    margin-right: auto;
+    text-indent: 50px;
+    width: 60em
+}
+body{
+    background-color: rgba(14, 180, 241, 0.8);
 }
 
-.leftside {
-	background-color: #f0f5f5;
-	padding: 10%;
-	padding-top: 25%;
-	padding-bottom: 58%;
-	border-radius: 25px;
+.sidenav {
+    height: 50%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 20%;
+    left: 0;
+    background-color:  #00004d;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
 }
 
-.main {
-	margin: auto;
-	background-color: rgba(207, 240, 252, 0.9);
-	padding: 10%;
-	border-radius: 25px;
-	margin-bottom: 10%;
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #0eabe6;
+    display: block;
+    transition: 0.3s
 }
 
-/* -- Login -- */
-#login_img {
-	position: absolute;
-	top: 0%;
-	z-index: -1;
-	opacity: 0.4;
-	width: 100%;
-	height: 100%;
+
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
 }
 
-.signin {
-	position: fixed;
-	top:25%;
-	left:20%;
-	background-color: rgba(207, 240, 252, 0.7);
-	border: 1px solid #0fb4f0;
-	width: 30%;
-	padding: 25px;
-	font-weight: bold;
-	border-radius: 25px;
-	box-shadow: 2px 2px 2px #0b7ea8;
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
 }
 
-.signup{
-	position: fixed;
-	top:25%;
-	left:55%;
-	background-color: rgba(207, 240, 252, 0.8);
-	border: 1px solid #0fb4f0;
-	width: 30%;
-	padding: 25px;
-	font-weight: bold;
-	border-radius: 25px;
-	box-shadow: 2px 2px 2px #0b7ea8;
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
 }
 
-.form-control {
-	height: 45px;
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
 }
 
-#bsignin, #bsignup {
-	font-size: 1.6em;
-}
 
-/* -- Create Profile -- */
-#create_profile {
-	background: url("profile.jpg") no-repeat center center fixed;
-	background-size: cover;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-}
+#general_diet{
 
-label {
-	font-size: 1.4em;
-}
-
-#timeframe {
-	width: 250px;
-	height: 30px;
-}
-
-#create_profile .main {
-	background-color: rgba(14, 180, 241, 0.8);
-	color: #001a66;
-}
-
-#bsave {
-	background-color: #001a66;
-	font-size: 1.6em;
-}
-/*Styling the footer*/
-footer{
-text-align: center;
- font-size: 1.4em;
-  background-color: #00004d;
-  padding: 1%;
-   color: #0eabe6 
-
-}
-footer a { 
-color: #0eabe6;
-text-decoration: none;
-
-}
-footer a:hover {
-color: #9ee1fa; 
-text-decoration: underline; 
+    background: url("general.jpg") no-repeat center center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
 }

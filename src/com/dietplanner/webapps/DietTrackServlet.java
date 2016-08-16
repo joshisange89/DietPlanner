@@ -38,9 +38,7 @@ public class DietTrackServlet extends HttpServlet {
 		userProfile = (ProfileVO) session.getAttribute("userProfile");
 		int tracDays = DietTrackDAO.getTracking(userProfile.getUserId());
 		session.setAttribute("trackDays", tracDays);
-		session.setAttribute("timeFrame", userProfile.getTimeFrame());
-		session.setAttribute("startDate", userProfile.getStartDate());
-		session.setAttribute("endDate", userProfile.getEndDate());
+		session.setAttribute("userProfile", userProfile);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("Track.jsp");
 	    requestDispatcher.forward(request, response);
 	    return;
