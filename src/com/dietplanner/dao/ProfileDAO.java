@@ -174,18 +174,18 @@ public class ProfileDAO {
 	    	
 	    	con = mysql.createConnection();
 			String update = "update user_profile set"
-					+ " firstname = ?"
-					+ " lastname = ?"
-					+ " height = ?"
-					+ " weight = ?"
-					+ " age = ?"
-					+ " gender = ?"
-					+ " bodyshape = ?"
-					+ " food = ?"
-					+ " goal = ?"
-					+ " time_frame = ?"
-					+ " start_date = ?"
-					+ " end_date = ?"
+					+ " firstname = ?,"
+					+ " lastname = ?,"
+					+ " height = ?,"
+					+ " weight = ?,"
+					+ " age = ?,"
+					+ " gender = ?,"
+					+ " bodyshape = ?,"
+					+ " food = ?,"
+					+ " goal = ?,"
+					+ " time_frame = ?,"
+					+ " start_date = ?,"
+					+ " end_date = ? "
 					+ " where user_id = ?";
 			pst = con.prepareStatement(update);	
 			pst.setString(1, userProfile.getFirstname());
