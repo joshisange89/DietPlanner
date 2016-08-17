@@ -134,6 +134,7 @@ function displayWeek(start_date) {
 	var dow = start_date.getDay();
 	var prev = dow;
 	var next = dow;
+	
 	var i = 1;
 
 	while ( prev > -1 ) {
@@ -141,20 +142,29 @@ function displayWeek(start_date) {
 		
 		document.getElementById(("day").concat(prev+1)).innerHTML = 
 		months[prev_date.getMonth()]+" "+prev_date.getDate()+", "+prev_date.getFullYear();
-		
+
+		<% 	Iterator<DietTrackVO> dietTrackItr = dietTracks.iterator();
+		String eachDay = null;%>
+		<% while ( dietTrackItr.hasNext() ) { %>
+			<% DietTrackVO dietTrack = new DietTrackVO();
+			dietTrack = dietTrackItr.next(); 
+			eachDay = dietTrack.getEachDate().split(" ", 2)[0]; System.out.print(eachDay);%>
+			var trackDay = "<%= eachDay %>";
+			console.log("track "+trackDay);
+			var track_date = "";
+			track_date = new Date(trackDay.split("-")[1]+"/"+trackDay.split("-")[2]+"/"+trackDay.split("-")[0]);
+			console.log("track date"+track_date);
+			if ( track_date.getTime() == prev_date.getTime() ) {
+				console.log("Matching "+ track_date + " " + prev_date);
+				document.getElementById(("checkmark").concat(prev+1)).style.background = "url(\"check-mark.png\") no-repeat";
+				document.getElementById(("checkmark").concat(prev+1)).style.backgroundSize = "cover";				
+			}
+		<% } %>
+
 		prev = prev - 1;
 		prev_date = new Date(start_date.getTime() - 86400000 * i);
 		i++;
-		<% 	Iterator<DietTrackVO> dietTrackItr = dietTracks.iterator();
-			while ( dietTrackItr.hasNext() ) { %>
-				console.log("'${ dietTrackItr.next().getEachDate() } '");
-				date_compare = new Date("'${ dietTrackItr.next().getEachDate() } '");
-				console.log("date to compare: " + date_compare);
-				if ( prev_date == date_compare ) {
-					console.log("Matched: " + date_compare);
-					document.getElementById(("checkmark").concat(prev+1)).style.background = "url(\"check-mark.png\") no-repeat";
-				}
-		<% 	} %>
+
 	}
 	
 	i = 1;
@@ -163,21 +173,25 @@ function displayWeek(start_date) {
 		document.getElementById(("day").concat(next+1)).innerHTML = 
 		months[next_date.getMonth()]+" "+next_date.getDate()+", "+next_date.getFullYear();
 
+		<% 	dietTrackItr = dietTracks.iterator();%>
+		<% while ( dietTrackItr.hasNext() ) { %>
+			<% DietTrackVO dietTrack = new DietTrackVO();
+			dietTrack = dietTrackItr.next(); 
+			eachDay = dietTrack.getEachDate().split(" ", 2)[0];%>
+			var trackDay = "<%= eachDay %>";
+			console.log("track "+trackDay);
+			var track_date = "";
+			track_date = new Date(trackDay.split("-")[1]+"/"+trackDay.split("-")[2]+"/"+trackDay.split("-")[0]);
+			console.log("track date"+track_date);
+			if ( track_date.getTime() == next_date.getTime() ) {
+				document.getElementById(("checkmark").concat(next+1)).style.background = "url(\"check-mark.png\") no-repeat";
+				document.getElementById(("checkmark").concat(next+1)).style.backgroundSize = "cover";				
+			}
+		<% } %>
+
 		next = Number(next + 1);
 		next_date = new Date(start_date.getTime() + 86400000 * i);
 		i++;
-				
-		<% 	dietTrackItr = dietTracks.iterator();
-		while ( dietTrackItr.hasNext() ) { %>
-			console.log("'${ dietTrackItr.next().getEachDate() } '");
-			date_compare = new Date("'${ dietTrackItr.next().getEachDate() } '");
-			console.log("date to compare: " + date_compare);
-			if ( next_date == date_compare ) {
-				console.log("Matched: " + date_compare);
-				document.getElementById(("checkmark").concat(next+1)).style.background = "url(\"check-mark.png\") no-repeat";
-			}
-	<% 	} %>
-
 	}
 }
 
@@ -213,9 +227,10 @@ function markDone(ele) {
 
 //Display Badges
 var track = 0;
-if ( session != null && session.getAttribute("tracDays") != null ) { 
-	track = session.getAttribute("tracDays");
-}
+
+<% if ( session != null && session.getAttribute("tracDays") != null ) { %> 
+	track = <%= session.getAttribute("tracDays") %>;
+<% } %>
 
 var trackDays = track;
 var timeFrame = "'${ userProfile.getTimeFrame() }'";
@@ -265,6 +280,7 @@ if ( timeFrame.localeCompare("2month") ) {
 }
 
 //Display Progress Chart
+/*
 google.charts.load('current', {'packages':['gauge']});
 google.charts.setOnLoadCallback(drawChart);
 
@@ -286,7 +302,7 @@ function drawChart() {
 	var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
 	chart.draw(data, options);
 }
-	  
+	*/  
 </script>
 
 <footer>
