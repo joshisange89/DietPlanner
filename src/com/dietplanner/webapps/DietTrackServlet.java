@@ -22,6 +22,10 @@ import com.dietplanner.valueobjects.ProfileVO;
 @WebServlet("/DietTrackServlet")
 public class DietTrackServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	ProfileVO userProfile = new ProfileVO();
+	DietTrackVO dietTrack = new DietTrackVO();
+	ArrayList<DietTrackVO> dietTracks = new ArrayList<DietTrackVO>();
+
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -36,9 +40,6 @@ public class DietTrackServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		ProfileVO userProfile = new ProfileVO();
-		DietTrackVO dietTrack = new DietTrackVO();
-		ArrayList<DietTrackVO> dietTracks = new ArrayList<DietTrackVO>();
 		
 		userProfile = (ProfileVO) session.getAttribute("userProfile");
 		int tracDays = DietTrackDAO.getTracking(userProfile.getUserId());

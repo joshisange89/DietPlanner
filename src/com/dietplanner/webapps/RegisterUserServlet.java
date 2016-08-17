@@ -20,8 +20,8 @@ import com.dietplanner.valueobjects.UserVO;
  */
 @WebServlet("/RegisterUserServlet")
 public class RegisterUserServlet extends HttpServlet {
-	UserVO user = new UserVO();
 	private static final long serialVersionUID = 1L;
+	UserVO user = new UserVO();
        
     /**
      * @see HttpServlet#HttpServlet()

@@ -89,7 +89,7 @@ public class DietTrackDAO {
 		
 	    try {
 	    	con = mysql.createConnection();
-			String select = "select week_day daily_date from diet_track where user_id = ?";
+			String select = "select week_day, daily_date from diet_track where user_id = ?";
 			pst = con.prepareStatement(select);
 			pst.setInt(1, userId);
 			rs = pst.executeQuery();

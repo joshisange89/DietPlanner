@@ -21,15 +21,6 @@
 
 <body>
 
-<%
-	ProfileVO userProfile = new ProfileVO();
-	userProfile = (ProfileVO) session.getAttribute("userProfile");
-	
-	DietTrackVO dietTrack = new DietTrackVO();
-	ArrayList<DietTrackVO> dietTracks = new ArrayList<DietTrackVO>();
-	dietTracks = (ArrayList<DietTrackVO>) session.getAttribute("dietTracks");	
-%>
-
 <nav class="navbar navbar-default container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#"><img src="logo1.png" width="50%"></a>
@@ -38,7 +29,7 @@
       <li><a href="HomeServlet">Home</a></li>
       <li><a href="SaveProfileServlet">Edit Profile</a></li>
       <li><a href="addons.html">Extra Pounds</a></li>
-	  <li><a href="Login.jsp">Log Out</a></li>
+	  <li><a href="LogOutServlet">Log Out</a></li>
     </ul>
 </nav>
 
@@ -75,7 +66,7 @@
 				<div class="week">					
 					<button id="checkmark3" onclick="markDone(this)"></button>
 					<p id="dayOfWeek3"></p>
-					<p id="day3"></p>					
+					<p id="day3"></p>	
 				</div>
 				<div class="week">					
 					<button id="checkmark4" onclick="markDone(this)"></button>
@@ -86,7 +77,7 @@
 					<button id="checkmark5" onclick="markDone(this)"></button>
 					<p id="dayOfWeek5"></p>
 					<p id="day5"></p>					
-				</div>			
+				</div>
 				<div class="week">
 					<button id="checkmark6" onclick="markDone(this)"></button>
 					<p id="dayOfWeek6"></p>
@@ -110,8 +101,107 @@
 	</div>
 </div>
 
-<script>
+<%
+	ProfileVO userProfile = new ProfileVO();
+	userProfile = (ProfileVO) session.getAttribute("userProfile");
+	
+	ArrayList<DietTrackVO> dietTracks = new ArrayList<DietTrackVO>();
+	dietTracks = (ArrayList<DietTrackVO>) session.getAttribute("dietTracks");	
+%>
 
+<script>
+// Display Week Dates
+var days = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday" ];
+var months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+var today = new Date();
+
+var start = "'${ userProfile.getStartDate() }'";
+var start_date = new Date(start);
+
+var end = "'${ userProfile.getEndDate() } '";
+var end_date = new Date(end);
+
+var date_compare;
+
+displayWeek(start_date);
+
+function displayWeek(start_date) {
+	var prev_date = start_date;
+	var next_date = start_date;
+
+	var dow = start_date.getDay();
+	var prev = dow;
+	var next = dow;
+	var i = 1;
+
+	while ( prev > -1 ) {
+		document.getElementById(("dayOfWeek").concat(prev+1)).innerHTML = days[prev];
+		
+		document.getElementById(("day").concat(prev+1)).innerHTML = 
+		months[prev_date.getMonth()]+" "+prev_date.getDate()+", "+prev_date.getFullYear();
+		
+		prev = prev - 1;
+		prev_date = new Date(start_date.getTime() - 86400000 * i);
+		i++;
+		<% for ( DietTrackVO dietTrack : dietTracks ) { %>
+			date_compare = new Date("'${ dietTrack.getEachDate() } '");
+			if ( prev_date == date_compare ) {
+				document.getElementById(("checkmark").concat(prev+1)).style.background = "url(\"check-mark.png\") no-repeat";
+			}
+		<% } %>
+	}
+	
+	i = 1;
+	while ( next < 7 ) {
+		document.getElementById(("dayOfWeek").concat(next+1)).innerHTML = days[next];
+		document.getElementById(("day").concat(next+1)).innerHTML = 
+		months[next_date.getMonth()]+" "+next_date.getDate()+", "+next_date.getFullYear();
+
+		next = Number(next + 1);
+		next_date = new Date(start_date.getTime() + 86400000 * i);
+		i++;
+		
+		<% for ( DietTrackVO dietTrack : dietTracks ) { %>
+			date_compare = new Date("'${ dietTrack.getEachDate() } '");
+			if ( prev_date == date_compare ) {
+				document.getElementById(("checkmark").concat(prev+1)).style.background = "url(\"check-mark.png\") no-repeat";
+			}
+		<% } %>
+	}
+}
+
+function displayNextWeek() {
+	var lastDay = new Date (document.getElementById("day7").innerHTML);
+	displayWeek(new Date(lastDay.getTime() + 86400000));
+}
+
+function displayPrevWeek() {
+	var firstDay = new Date (document.getElementById("day1").innerHTML);
+	displayWeek(new Date(firstDay.getTime() - 86400000));
+}
+
+// Display Mark Done
+function markDone(ele) {
+	var selectedDate = document.getElementById("day"+ele.id.match(/\d/g)[0]).innerHTML;
+	var selectedDateObj = new Date(Date.parse(document.getElementById("day"+ele.id.match(/\d/g)[0]).innerHTML));
+	
+	if ( selectedDateObj >= start_date && selectedDateObj <= today ) {
+		document.getElementById(ele.id).style.background = "url(\"check-mark.png\") no-repeat";
+		document.getElementById(ele.id).style.backgroundSize = "cover";
+		document.track.dayOfWeek.value = document.getElementById("dayOfWeek"+ele.id.match(/\d/g)[0]).innerHTML;
+		document.track.day.value = selectedDate;
+		document.track.submit();
+	} else if ( selectedDateObj > today ) {
+		document.getElementById("error").innerHTML = "Hey, how can you eat future day's diet today";
+	} else if ( selectedDateObj < end_date  ) {
+		document.getElementById("error").innerHTML = "Your plan was not started on this date";
+	} else if ( selectedDateObj > end_date  ) {
+		document.getElementById("error").innerHTML = "Your plan has ended";
+	}
+}
+
+//Display Badges
 var trackDays = <%= (int) session.getAttribute("trackDays") %>;
 var timeFrame = "'${ userProfile.getTimeFrame() }'";
 var progress = 0 ;
@@ -159,80 +249,7 @@ if ( timeFrame.localeCompare("2month") ) {
 	progress = (trackDays / 60) * 100;
 }
 
-var days = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday" ];
-var months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-var today = new Date();
-
-var start = "'${ userProfile.getStartDate() }'";
-var start_date = new Date(start);
-
-var end = "'${ userProfile.getEndDate() } '";
-var end_date = new Date(end);
-
-displayWeek(start_date);
-
-function displayWeek(start_date) {
-	var prev_date = start_date;
-	var next_date = start_date;
-
-	var dow = start_date.getDay();
-	var prev = dow;
-	var next = dow;
-	var i = 1;
-
-	while ( prev > -1 ) {
-		document.getElementById(("dayOfWeek").concat(prev+1)).innerHTML = days[prev];
-		
-		document.getElementById(("day").concat(prev+1)).innerHTML = 
-		months[prev_date.getMonth()]+" "+prev_date.getDate()+", "+prev_date.getFullYear();
-		
-		prev = prev - 1;
-		prev_date = new Date(start_date.getTime() - 86400000 * i);
-		i++;
-	}
-	
-	i = 1;
-	while ( next < 7 ) {
-		document.getElementById(("dayOfWeek").concat(next+1)).innerHTML = days[next];
-		document.getElementById(("day").concat(next+1)).innerHTML = 
-		months[next_date.getMonth()]+" "+next_date.getDate()+", "+next_date.getFullYear();
-
-		next = Number(next + 1);
-		next_date = new Date(start_date.getTime() + 86400000 * i);
-		i++;
-	}
-}
-
-function markDone(ele) {
-	var selectedDate = document.getElementById("day"+ele.id.match(/\d/g)[0]).innerHTML;
-	var selectedDateObj = new Date(Date.parse(document.getElementById("day"+ele.id.match(/\d/g)[0]).innerHTML));
-	
-	if ( selectedDateObj >= start_date && selectedDateObj <= today ) {
-		document.getElementById(ele.id).style.background = "url(\"check-mark.png\") no-repeat";
-		document.getElementById(ele.id).style.backgroundSize = "cover";
-		document.track.dayOfWeek.value = document.getElementById("dayOfWeek"+ele.id.match(/\d/g)[0]).innerHTML;
-		document.track.day.value = selectedDate;
-		document.track.submit();
-	} else if ( selectedDateObj > today ) {
-		document.getElementById("error").innerHTML = "Hey, how can you eat future day's diet today";
-	} else if ( selectedDateObj < end_date  ) {
-		document.getElementById("error").innerHTML = "Your plan was not started on this date";
-	} else if ( selectedDateObj > end_date  ) {
-		document.getElementById("error").innerHTML = "Your plan has ended";
-	}
-}
-
-function displayNextWeek() {
-	var lastDay = new Date (document.getElementById("day7").innerHTML);
-	displayWeek(new Date(lastDay.getTime() + 86400000));
-}
-
-function displayPrevWeek() {
-	var firstDay = new Date (document.getElementById("day1").innerHTML);
-	displayWeek(new Date(firstDay.getTime() - 86400000));
-}
-
+//Display Progress Chart
 google.charts.load('current', {'packages':['gauge']});
 google.charts.setOnLoadCallback(drawChart);
 

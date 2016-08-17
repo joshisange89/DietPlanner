@@ -25,7 +25,7 @@
       <li><a href="HomeServlet">Home</a></li>
       <li><a href="SaveProfileServlet">Edit Profile</a></li>
       <li><a href="addons.html">Extra Pounds</a></li>
-	  <li><a href="Login.jsp">Log Out</a></li>
+	  <li><a href="LogOutServlet">Log Out</a></li>
     </ul>
 </nav>
 
