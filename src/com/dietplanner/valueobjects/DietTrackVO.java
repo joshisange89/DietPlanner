@@ -4,8 +4,7 @@ import java.util.Date;
 
 public class DietTrackVO {
 	private int userId;
-	private int dietId;
-	private Date eachDate;
+	private String eachDate;
 	private boolean flag;
 	private String weekDay;
 	
@@ -15,16 +14,10 @@ public class DietTrackVO {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	public int getDietId() {
-		return dietId;
-	}
-	public void setDietId(int dietId) {
-		this.dietId = dietId;
-	}
-	public Date getEachDate() {
+	public String getEachDate() {
 		return eachDate;
 	}
-	public void setEachDate(Date eachDate) {
+	public void setEachDate(String eachDate) {
 		this.eachDate = eachDate;
 	}
 	public boolean isFlag() {

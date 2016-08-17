@@ -40,10 +40,7 @@ public class SaveProfileServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		
 		userProfile = (ProfileVO) session.getAttribute("userProfile");
-		int userId = (int) session.getAttribute("userId");
-		userProfile = ProfileDAO.getProfile(userId);
 		session.setAttribute("userProfile", userProfile);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("CreateProfile.jsp");
 	    requestDispatcher.forward(request, response);
@@ -84,29 +81,37 @@ public class SaveProfileServlet extends HttpServlet {
         startDate = request.getParameter("startDate");
         
         height = Integer.parseInt(hfeet) * 12 + Integer.parseInt(hinches); 
-        
-        userProfile.setUserId((int) session.getAttribute("userId"));
-        userProfile.setFirstname(firstname);
-        userProfile.setLastname(lastname);
-        userProfile.setHeight(height);
-        userProfile.setWeight(Integer.parseInt(weight));
-        userProfile.setAge(Integer.parseInt(age));
-        userProfile.setGender(gender);
-        userProfile.setBodyshape(body);
-        userProfile.setFood(food);
-        userProfile.setGoal(goal);
-        userProfile.setTimeFrame(timeframe);
-        userProfile.setStartDate(startDate);
-        
-        if (ProfileDAO.createProfile(userProfile)) {
-        	session.setAttribute("userProfile", userProfile);
+             
+        if ( session.getAttribute("userId") != null ) {
+        	userProfile.setUserId( (int) session.getAttribute("userId"));
+	        if (ProfileDAO.createProfile(userProfile)) {
+	        	session.setAttribute("userProfile", userProfile);
+	        	
+	        	diet = DietPlanDAO.getDietPlan(userProfile.getUserId());        	    	
+	    		session.setAttribute("dietPlan", diet);
+	        }
+        } else {        	
+	        userProfile.setFirstname(firstname);
+	        userProfile.setLastname(lastname);
+	        userProfile.setHeight(height);
+	        userProfile.setWeight(Integer.parseInt(weight));
+	        userProfile.setAge(Integer.parseInt(age));
+	        userProfile.setGender(gender);
+	        userProfile.setBodyshape(body);
+	        userProfile.setFood(food);
+	        userProfile.setGoal(goal);
+	        userProfile.setTimeFrame(timeframe);
+	        userProfile.setStartDate(startDate);      
         	
-        	diet = DietPlanDAO.getDietPlan(userProfile.getUserId());        	    	
-    		session.setAttribute("dietPlan", diet);
-    		
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
-		    requestDispatcher.forward(request, response);
-		    return;
-        }
+	        if (ProfileDAO.updateProfile(userProfile)) {
+	        	session.setAttribute("userProfile", userProfile);
+	        	
+	        	diet = DietPlanDAO.getDietPlan(userProfile.getUserId());        	    	
+	    		session.setAttribute("dietPlan", diet);
+	        }
+        }    		
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
+		requestDispatcher.forward(request, response);
+		return;
 	}
 }

@@ -1,4 +1,5 @@
 <%@page import="com.dietplanner.valueobjects.*"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -22,7 +23,11 @@
 
 <%
 	ProfileVO userProfile = new ProfileVO();
-	userProfile = (ProfileVO) session.getAttribute("userProfile");		
+	userProfile = (ProfileVO) session.getAttribute("userProfile");
+	
+	DietTrackVO dietTrack = new DietTrackVO();
+	ArrayList<DietTrackVO> dietTracks = new ArrayList<DietTrackVO>();
+	dietTracks = (ArrayList<DietTrackVO>) session.getAttribute("dietTracks");	
 %>
 
 <nav class="navbar navbar-default container-fluid">
@@ -130,7 +135,7 @@ if ( timeFrame.localeCompare("1month") ) {
 	} else if ( trackDays >= 28 ) {
 		document.getElementById("badge3_img").src = badge3;
 		document.getElementById("ebadge_note2").innerHTML = "Super Job, Milestone Accomplished. Congratulations!!!";
-	}	
+	}
 	progress = (trackDays / 30) * 100; 
 }
 
@@ -181,7 +186,7 @@ function displayWeek(start_date) {
 		
 		document.getElementById(("day").concat(prev+1)).innerHTML = 
 		months[prev_date.getMonth()]+" "+prev_date.getDate()+", "+prev_date.getFullYear();
-
+		
 		prev = prev - 1;
 		prev_date = new Date(start_date.getTime() - 86400000 * i);
 		i++;

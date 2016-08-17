@@ -158,4 +158,66 @@ public class ProfileDAO {
 	    return status;
 	}
 
+	public static boolean updateProfile(ProfileVO userProfile) {
+	    try {	 
+	    	String startDate = userProfile.getStartDate();
+	    	String endDate = startDate;
+	    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	    	Calendar c = Calendar.getInstance();
+	    	c.setTime(sdf.parse(endDate));
+
+	    	int duration = Integer.parseInt(userProfile.getTimeFrame().replaceAll("[^\\d]", ""));
+	    	c.add(Calendar.MONTH, duration);
+	    	
+	    	endDate = sdf.format(c.getTime()).split(" ", 2)[0];
+	    	int dietId = DietPlanDAO.getDietPlanId(userProfile.getFood(), userProfile.getGoal(), userProfile.getTimeFrame());
+	    	
+	    	con = mysql.createConnection();
+			String update = "update user_profile set"
+					+ " firstname = ?"
+					+ " lastname = ?"
+					+ " height = ?"
+					+ " weight = ?"
+					+ " age = ?"
+					+ " gender = ?"
+					+ " bodyshape = ?"
+					+ " food = ?"
+					+ " goal = ?"
+					+ " time_frame = ?"
+					+ " start_date = ?"
+					+ " end_date = ?"
+					+ " where user_id = ?";
+			pst = con.prepareStatement(update);	
+			pst.setString(1, userProfile.getFirstname());
+			pst.setString(2, userProfile.getLastname());
+			pst.setInt(3, userProfile.getHeight());
+			pst.setInt(4, userProfile.getWeight());
+			pst.setInt(5, userProfile.getAge());
+			pst.setString(6, userProfile.getGender());
+			pst.setString(7, userProfile.getBodyshape());
+			pst.setString(8, userProfile.getFood());
+			pst.setString(9, userProfile.getGoal());
+			pst.setString(10, userProfile.getTimeFrame());
+			pst.setString(11, startDate);
+			pst.setString(12, endDate);
+			pst.setInt(13, userProfile.getUserId());
+			success = pst.executeUpdate();
+						
+			if (success > 0) {
+				status = true;
+			} else {
+				status = false;
+			}
+			
+	    } catch (Exception e) {  
+	        System.out.println(e);  
+	    } finally {  
+	    	try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	    }
+	    return status;
+	}
 }

@@ -33,9 +33,12 @@
 	ProfileVO userProfile = new ProfileVO();
 	userProfile = (ProfileVO) session.getAttribute("userProfile");
 	
+	int hfeets = 0, hinch = 0;
+	String startDate = null;
 	if ( userProfile != null ) {
-		int feet = userProfile.getHeight() / 12;
-		int inches = userProfile.getHeight() % 12;
+		hfeets = userProfile.getHeight() / 12;
+		hinch = userProfile.getHeight() % 12;
+		startDate = userProfile.getStartDate().split(" ", 2)[0];
 	}
 %>
 
@@ -64,8 +67,11 @@
 				<div class="form-group">
 					<label for="height" class="control-label col-md-3" >Height: </label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" id="feet" name="feet" value="${ feet }"  placeholder="Feet">
-						<input type="text" class="form-control" id="inches" name="inches" value="${ inches }" placeholder="Inches">
+						<input type="text" class="form-control" id="feet" name="feet" 
+						value="<%= hfeets %>"  placeholder="Feet">
+						
+						<input type="text" class="form-control" id="inches" name="inches" 
+						value="<%= hinch %>" placeholder="Inches">
 					</div>
 				</div>
 				
@@ -172,7 +178,8 @@
 				<div class="form-group">
 					<label for="startDate" class="control-label col-md-3" >Start Date:</label>
 					<div class="col-md-9">
-					<input type="date" id="startDate" name="startDate" required>
+					<input type="date" id="startDate" name="startDate"  
+					value="<%= startDate %>" required>
 					</div>
 				</div>
 				<button class="btn btn-primary btn-block" id="bsave">Save Profile</button>

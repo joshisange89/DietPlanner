@@ -6,10 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
+import com.dietplanner.valueobjects.DietTrackVO;
 import com.dietplanner.valueobjects.UserVO;
 
 public class DietTrackDAO {
@@ -21,6 +23,7 @@ public class DietTrackDAO {
 	static ResultSet rs = null;
 	static int success;
 	static String[] months = { "None", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+	static ArrayList<DietTrackVO> dietTracks = new ArrayList<DietTrackVO>();
 
 	public static boolean UpdateTracking(int userId, String dayOfWeek, String day) {
 		
@@ -80,5 +83,32 @@ public class DietTrackDAO {
 			}
 	    }
 		return trakdDays;		
+	}
+
+	public static ArrayList<DietTrackVO> getTrackingDays(int userId) {
+		
+	    try {
+	    	con = mysql.createConnection();
+			String select = "select week_day daily_date from diet_track where user_id = ?";
+			pst = con.prepareStatement(select);
+			pst.setInt(1, userId);
+			rs = pst.executeQuery();
+	
+			while (rs.next()) {
+				DietTrackVO dietTrack = new DietTrackVO();
+				dietTrack.setWeekDay(rs.getString(1));
+				dietTrack.setEachDate(rs.getString(rs.getString(2)));
+				dietTracks.add(dietTrack);
+			} 
+	    } catch (Exception e) {
+	        System.out.println(e);
+	    } finally {  
+	    	try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	    }
+		return dietTracks;
 	}
 }
