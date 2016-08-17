@@ -136,3 +136,16 @@ footer a:hover {
 color: #9ee1fa; 
 text-decoration: underline; 
 }
+
+/*Add opacity in addons.html*/
+
+.main1 {
+    background-color: rgba(179, 230, 255, 0.8);
+    border-radius: 25px;
+    color: #002db3;
+    font-size: 1em;
+    margin-left: 1%;
+    padding: 2%;
+    width: 100%;
+
+}

@@ -48,33 +48,36 @@
 		<div class="contaier col-md-4">
 			<div class="leftside">
 				<input type="hidden" id="calculateAction" name="calculateAction" value="bmi" />
-				<button class="btn btn-primary" id="viewBmi" onclick="viewBMI()">View My BMI</button>
+				<button class="btn btn-primary btn-lg" id="viewBmi" onclick="viewBMI()">View My BMI</button>
 				<p id="bmi" name="bmi" ></p>
 				<p id="bminote" name="bminote" ></p>			
 					
 				<input type="hidden" id="calculateAction" name="calculateAction" value="ibw" />
-				<button class="btn btn-primary" id="viewIw" onclick="viewIW()">View Ideal Weight</button>
-				<p id="ibw" name="ibw"></p>				
-			
-				<input type="hidden" id="calculateAction" name="calculateAction" value="exercise" />
-				<button class="btn btn-primary" id="viewExer" onclick="viewExer()">View Exercise</button>
-				<img id="img1">
-				<img id="img2">
-				<img id="img3">			
+				<button class="btn btn-primary btn-lg" id="viewIw" onclick="viewIW()">View Ideal Weight</button>
+				<p id="ibw" name="ibw"></p>			
 			</div>
 		</div>
 		<div class="contaier col-md-8">
 			<div class="main">	
-				<h3>Breakfast</h3>		
-					<p>${dietPlan.getBreakfast()}</p>
-				<h3>Lunch</h3>
-					<p>${dietPlan.getLunch()}</p>
-				<h3>Snack</h3>
-					<p>${dietPlan.getSnack()}</p>
-				<h3>Dinner</h3>
-					<p>${dietPlan.getDinner()}</p>
+				<h3 class="dmain">Breakfast</h3>		
+					<p class="dcon">${dietPlan.getBreakfast()}</p>
+				<h3 class="dmain">Lunch</h3>
+					<p class="dcon">${dietPlan.getLunch()}</p>
+				<h3 class="dmain">Snack</h3>
+					<p class="dcon">${dietPlan.getSnack()}</p>
+				<h3 class="dmain">Dinner</h3>
+					<p class="dcon">${dietPlan.getDinner()}</p>
 				<h4 align="right"><a href="DietTrackServlet">Track Your Diet</a></h4>
 			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="contaier-fluid col-md-12 exercise">
+			<input type="hidden" id="calculateAction" name="calculateAction" value="exercise" />
+			<button class="btn btn-primary btn-block" id="viewExer" onclick="viewExer()">View Exercise</button>
+			<img id="img1">
+			<img id="img2">
+			<img id="img3">
 		</div>
 	</div>
 </div>

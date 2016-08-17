@@ -27,6 +27,12 @@ body {
     color: #9ee1fa !important;
 }
 
+#error {
+	color: #800000;
+	text-align: center;
+	font-size: 1.2em;
+}
+
 .container {
 	margin-top: 5%;
 }
@@ -37,11 +43,12 @@ body {
 	padding-top: 25%;
 	padding-bottom: 58%;
 	border-radius: 25px;
+	height: 600px;
 }
 
 .main {
 	margin: auto;
-	background-color: rgba(207, 240, 252, 0.9);
+	background-color: rgba(240, 245, 245, 0.9);
 	padding: 10%;
 	border-radius: 25px;
 	margin-bottom: 10%;
@@ -59,7 +66,7 @@ body {
 
 .signin {
 	position: fixed;
-	top:25%;
+	top:30%;
 	left:20%;
 	background-color: rgba(207, 240, 252, 0.7);
 	border: 1px solid #0fb4f0;
@@ -72,7 +79,7 @@ body {
 
 .signup{
 	position: fixed;
-	top:25%;
+	top:30%;
 	left:55%;
 	background-color: rgba(207, 240, 252, 0.8);
 	border: 1px solid #0fb4f0;
@@ -149,6 +156,45 @@ label {
 	margin-top: 240%;
 }
 
+/*-- Home Page --*/
+.exercise {
+	background-color: #f0f5f5;
+	padding: 2%;
+	border-radius: 25px;
+}
+
+#viewBmi, #viewIw {
+	font-size: 1.4em;
+	padding: 2%;
+	background-color: #0066ff;
+	margin-left: 5%;
+	margin-top: 20%;
+} 
+
+#viewExer {
+	font-size: 1.4em;
+	padding: 1%;
+	background-color: #0066ff;
+	margin: 1%;
+}
+
+#img1, #img2, #img3 {
+	display: inline;
+}
+
+.dmain {
+	color: #0086b3;
+	background-color: #99d6ff;
+	border-radius: 25px;
+	padding: 2%;
+}
+
+.dcon, #bmi, #bminote, #ibw {
+	color: #0066ff;
+	font-size: 1.4em;
+	padding: 2%;
+}
+	
 /*-- Tracking Page --*/
 .badges {
 	background-color: #f0f5f5;

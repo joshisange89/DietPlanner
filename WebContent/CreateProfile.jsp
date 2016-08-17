@@ -34,7 +34,7 @@
 	userProfile = (ProfileVO) session.getAttribute("userProfile");
 	
 	int hfeets = 0, hinch = 0;
-	String startDate = null;
+	String startDate = "";
 	if ( userProfile != null ) {
 		hfeets = userProfile.getHeight() / 12;
 		hinch = userProfile.getHeight() % 12;
@@ -53,24 +53,28 @@
 				<div class="form-group">
 					<label for="firstname" class="control-label col-md-3" >First Name: </label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" id="firstname" name="firstname" value="${ userProfile.getFirstname() }" placeholder="First Name">
+						<input type="text" class="form-control" id="firstname" name="firstname" 
+						pattern="[A-Za-z]{1,32}"
+						value="${ userProfile.getFirstname() }" placeholder="First Name">
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label for="lastname" class="control-label col-md-3" >Last Name: </label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" id="lastname" name="lastname"  value="${ userProfile.getLastname() }" placeholder="Last Name">
+						<input type="text" class="form-control" id="lastname" name="lastname"  
+						pattern="[A-Za-z]{1,32}"
+						value="${ userProfile.getLastname() }" placeholder="Last Name">
 					</div>
 				</div>
 			
 				<div class="form-group">
 					<label for="height" class="control-label col-md-3" >Height: </label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" id="feet" name="feet" 
+						<input type="number" class="form-control" id="feet" name="feet" 
 						value="<%= hfeets %>"  placeholder="Feet">
 						
-						<input type="text" class="form-control" id="inches" name="inches" 
+						<input type="number" class="form-control" id="inches" name="inches" 
 						value="<%= hinch %>" placeholder="Inches">
 					</div>
 				</div>
@@ -85,7 +89,7 @@
 				<div class="form-group">
 					<label for="age" class="control-label col-md-3" >Age:</label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" id="age" name="age" value="${ userProfile.getAge() }" placeholder="age" >
+						<input type="number" min="18" max="80" class="form-control" id="age" name="age" value="${ userProfile.getAge() }" placeholder="age" >
 					</div>
 				</div>
 				

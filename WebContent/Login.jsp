@@ -27,27 +27,54 @@
 
 <div class="container">
 	<% if ( request.getAttribute("error") != null ) { %>		
-		<p id="error" name="error"><%= request.getAttribute("error") %></p>
+		<p id="error" name="error"> <%= request.getAttribute("error") %></p>
 	<% } %>
+	
+	<p id="error"></p>
+	<br/><br/><br/>
 	<div class="row">
 		<div class="contaier col-md-6 signin">
-		<form role="form" action="LoginServlet" method="post">
-			<input type="text" class="form-control" id="username" name="username" placeholder="Email Id" required /><br/>
-			<input type="password" class="form-control" id="password" name="password" placeholder="Password" required /><br/>
+			<form role="form" name="login" action="LoginServlet" method="post">
+				<input type="email" class="form-control" id="username" name="username" placeholder="Email Id" required /><br/>
+				<input type="password" class="form-control" id="password" name="password" placeholder="Password" required /><br/>				
+			</form>
 			<button class="btn btn-primary btn-block" id="bsignin" onclick="onSignIn()">Sign In</button>
-		</form>
 		</div>
 
 		<div class="contaier col-md-6 signup">
-		<form role="form" action="RegisterUserServlet" method="post">
-			<input type="text" class="form-control" id="username" name="username" placeholder="Email Id" required /><br/>
-			<input type="password" class="form-control" id="newPass" name="password" placeholder="New Password" required /><br/>
-			<input type="password" class="form-control" id="ConPass" placeholder="Confirm Password" required /><br/>
+			<form role="form" name="register" action="RegisterUserServlet" method="post">
+				<input type="email" class="form-control" id="username" name="username" placeholder="Email Id" required /><br/>
+				<input type="password" class="form-control" id="newPass" name="password" placeholder="New Password" required /><br/>
+				<input type="password" class="form-control" id="conPass" placeholder="Confirm Password" required /><br/>			
+			</form>
 			<button class="btn btn-primary btn-block" id="bsignup" onclick="onSignUp()">Sign Up</button>
-		</form>
 		</div>
 	</div>
 </div>
+<script>
+function onSignIn() {
+	var password = document.getElementById("password").value;
+	var re1 = /[0-9]/;
+	var re2 = /[a-z]/;
+	var re3 = /[A-Z]/;
+	
+	if ( !re1.test(password) || !re1.test(password) || !re1.test(password) ) {
+		document.getElementById("error").innerHTML = "Password should contain minimum 8 characters"
+			+"should have aleast 1 number, 1 lower case letter and 1 upper case letter";
+	} else {
+		document.login.submit();
+	}
+	
+}
 
+function onSignUp() {
+	if ( document.getElementById("newPass").value == document.getElementById("conPass").value ) {		
+		document.register.submit();
+	} else {
+		document.getElementById("error").innerHTML = "Password is not matching";
+	}
+}
+
+</script>
 </body>
 </html>

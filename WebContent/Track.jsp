@@ -42,7 +42,7 @@
 				<p id="ebadge_note3"></p>
 				<img id="badge1_img width="100">
 				<img id="badge2_img width="100">
-				<img id="badge3_img width="150">
+				<img id="badge3_img width="100">
 			</div>
 			<div class="track_week">
 				<p id="error"></p>
@@ -103,11 +103,20 @@
 
 <%
 	ProfileVO userProfile = new ProfileVO();
-	userProfile = (ProfileVO) session.getAttribute("userProfile");
+	String startDate = "";
+	String endDate = "";
+	String timeFrame = "";
+	if ( session.getAttribute("userProfile") != null ) {
+		userProfile = (ProfileVO) session.getAttribute("userProfile");
+		
+		System.out.println("Start Date: " + userProfile.getStartDate());
+		startDate = userProfile.getStartDate();
+		endDate = userProfile.getEndDate();
+		timeFrame = userProfile.getTimeFrame();
+	}
 	
 	ArrayList<DietTrackVO> dietTracks = new ArrayList<DietTrackVO>();
-	dietTracks = (ArrayList<DietTrackVO>) session.getAttribute("dietTracks");
-	 
+	dietTracks = (ArrayList<DietTrackVO>) session.getAttribute("dietTracks"); 
 %>
 
 <script>
@@ -117,10 +126,10 @@ var months = [ "January", "February", "March", "April", "May", "June", "July", "
 
 var today = new Date();
 
-var start = "'${ userProfile.getStartDate() }'";
+var start = "<%= startDate %>";
 var start_date = new Date(start);
-
-var end = "'${ userProfile.getEndDate() } '";
+console.log("Start Date: " + start_date);
+var end = "<%= endDate %>";
 var end_date = new Date(end);
 
 var date_compare;
@@ -143,12 +152,11 @@ function displayWeek(start_date) {
 		document.getElementById(("day").concat(prev+1)).innerHTML = 
 		months[prev_date.getMonth()]+" "+prev_date.getDate()+", "+prev_date.getFullYear();
 
-		<% 	Iterator<DietTrackVO> dietTrackItr = dietTracks.iterator();
-		String eachDay = null;%>
+		<% 	Iterator<DietTrackVO> dietTrackItr = dietTracks.iterator(); %>
 		<% while ( dietTrackItr.hasNext() ) { %>
 			<% DietTrackVO dietTrack = new DietTrackVO();
 			dietTrack = dietTrackItr.next(); 
-			eachDay = dietTrack.getEachDate().split(" ", 2)[0]; System.out.print(eachDay);%>
+			String eachDay = dietTrack.getEachDate().split(" ", 2)[0];%>
 			var trackDay = "<%= eachDay %>";
 			console.log("track "+trackDay);
 			var track_date = "";
@@ -177,7 +185,7 @@ function displayWeek(start_date) {
 		<% while ( dietTrackItr.hasNext() ) { %>
 			<% DietTrackVO dietTrack = new DietTrackVO();
 			dietTrack = dietTrackItr.next(); 
-			eachDay = dietTrack.getEachDate().split(" ", 2)[0];%>
+			String eachDay = dietTrack.getEachDate().split(" ", 2)[0];%>
 			var trackDay = "<%= eachDay %>";
 			console.log("track "+trackDay);
 			var track_date = "";
@@ -233,7 +241,7 @@ var track = 0;
 <% } %>
 
 var trackDays = track;
-var timeFrame = "'${ userProfile.getTimeFrame() }'";
+var timeFrame = "<%= timeFrame %>";
 var progress = 0 ;
 
 var badge1 = "http://www.freeiconspng.com/uploads/badge-icon-png-22.png";
