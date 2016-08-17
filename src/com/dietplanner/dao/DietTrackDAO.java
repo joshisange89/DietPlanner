@@ -97,7 +97,7 @@ public class DietTrackDAO {
 			while (rs.next()) {
 				DietTrackVO dietTrack = new DietTrackVO();
 				dietTrack.setWeekDay(rs.getString(1));
-				dietTrack.setEachDate(rs.getString(rs.getString(2)));
+				dietTrack.setEachDate(rs.getString(2));
 				dietTracks.add(dietTrack);
 			} 
 	    } catch (Exception e) {

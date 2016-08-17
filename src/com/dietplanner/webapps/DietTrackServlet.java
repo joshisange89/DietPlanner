@@ -62,11 +62,13 @@ public class DietTrackServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         String dayOfWeek = null;
         String day = null;
-        int userId = (int) session.getAttribute("userId");
+        ProfileVO userProf = (ProfileVO) session.getAttribute("userProfile");
+        int userId = userProf.getUserId();
        
         dayOfWeek = request.getParameter("dayOfWeek");
         day = request.getParameter("day");
         DietTrackDAO.UpdateTracking(userId, dayOfWeek, day);
+        doGet(request, response);
 	}
 
 }

@@ -1,5 +1,5 @@
-<%@page import="com.dietplanner.valueobjects.*"%>
-<%@page import="java.util.ArrayList"%>
+<%@page import="com.dietplanner.valueobjects.*,java.util.*"%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -106,7 +106,8 @@
 	userProfile = (ProfileVO) session.getAttribute("userProfile");
 	
 	ArrayList<DietTrackVO> dietTracks = new ArrayList<DietTrackVO>();
-	dietTracks = (ArrayList<DietTrackVO>) session.getAttribute("dietTracks");	
+	dietTracks = (ArrayList<DietTrackVO>) session.getAttribute("dietTracks");
+	 
 %>
 
 <script>
@@ -144,12 +145,16 @@ function displayWeek(start_date) {
 		prev = prev - 1;
 		prev_date = new Date(start_date.getTime() - 86400000 * i);
 		i++;
-		<% for ( DietTrackVO dietTrack : dietTracks ) { %>
-			date_compare = new Date("'${ dietTrack.getEachDate() } '");
-			if ( prev_date == date_compare ) {
-				document.getElementById(("checkmark").concat(prev+1)).style.background = "url(\"check-mark.png\") no-repeat";
-			}
-		<% } %>
+		<% 	Iterator<DietTrackVO> dietTrackItr = dietTracks.iterator();
+			while ( dietTrackItr.hasNext() ) { %>
+				console.log("'${ dietTrackItr.next().getEachDate() } '");
+				date_compare = new Date("'${ dietTrackItr.next().getEachDate() } '");
+				console.log("date to compare: " + date_compare);
+				if ( prev_date == date_compare ) {
+					console.log("Matched: " + date_compare);
+					document.getElementById(("checkmark").concat(prev+1)).style.background = "url(\"check-mark.png\") no-repeat";
+				}
+		<% 	} %>
 	}
 	
 	i = 1;
@@ -161,13 +166,18 @@ function displayWeek(start_date) {
 		next = Number(next + 1);
 		next_date = new Date(start_date.getTime() + 86400000 * i);
 		i++;
-		
-		<% for ( DietTrackVO dietTrack : dietTracks ) { %>
-			date_compare = new Date("'${ dietTrack.getEachDate() } '");
-			if ( prev_date == date_compare ) {
-				document.getElementById(("checkmark").concat(prev+1)).style.background = "url(\"check-mark.png\") no-repeat";
+				
+		<% 	dietTrackItr = dietTracks.iterator();
+		while ( dietTrackItr.hasNext() ) { %>
+			console.log("'${ dietTrackItr.next().getEachDate() } '");
+			date_compare = new Date("'${ dietTrackItr.next().getEachDate() } '");
+			console.log("date to compare: " + date_compare);
+			if ( next_date == date_compare ) {
+				console.log("Matched: " + date_compare);
+				document.getElementById(("checkmark").concat(next+1)).style.background = "url(\"check-mark.png\") no-repeat";
 			}
-		<% } %>
+	<% 	} %>
+
 	}
 }
 
@@ -202,7 +212,12 @@ function markDone(ele) {
 }
 
 //Display Badges
-var trackDays = <%= (int) session.getAttribute("trackDays") %>;
+var track = 0;
+if ( session != null && session.getAttribute("tracDays") != null ) { 
+	track = session.getAttribute("tracDays");
+}
+
+var trackDays = track;
 var timeFrame = "'${ userProfile.getTimeFrame() }'";
 var progress = 0 ;
 
