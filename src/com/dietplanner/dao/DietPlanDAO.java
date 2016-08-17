@@ -81,4 +81,37 @@ public class DietPlanDAO {
 	    }
 		return dietId;
 	}
+	
+	public static DietVO getDietPlan(int userId, String food, String goal, String timeFrame) {
+
+		DietVO diet = new DietVO();
+		
+		try {  
+	    	con = mysql.createConnection();
+			String select = "select diet_id, breakfast, lunch, snack, dinner from diet_plan where food = ? and goal = ? and time_frame = ?";
+			pst = con.prepareStatement(select);
+			pst.setString(1, food);
+			pst.setString(1, goal);
+			pst.setString(1, timeFrame);
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				diet.setDietId(rs.getInt(1));
+				diet.setBreakfast(rs.getString(2));
+				diet.setLunch(rs.getString(3));
+				diet.setSnack(rs.getString(4));
+				diet.setDinner(rs.getString(5));
+			} 
+	    } catch (Exception e) {  
+	        System.out.println(e);  
+	    } finally {  
+	    	try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	    }
+		return diet;
+	}
+
 }
